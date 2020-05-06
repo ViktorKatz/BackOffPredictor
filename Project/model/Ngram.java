@@ -11,7 +11,7 @@ public class Ngram implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
-		System.out.print("Ovde idu testiranja");
+		System.out.print("Testing testing 123");
 
 	}
 
