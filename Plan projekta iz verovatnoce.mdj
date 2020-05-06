@@ -1882,8 +1882,8 @@
 												"$ref": "AAAAAAFx5dHTFkaBd3A="
 											},
 											"font": "Arial;13;0",
-											"left": 1109,
-											"top": 293,
+											"left": 1045,
+											"top": 245,
 											"width": 183.853515625,
 											"height": 13,
 											"text": "«static»"
@@ -1895,8 +1895,8 @@
 												"$ref": "AAAAAAFx5dHTFkaBd3A="
 											},
 											"font": "Arial;13;1",
-											"left": 1109,
-											"top": 308,
+											"left": 1045,
+											"top": 260,
 											"width": 183.853515625,
 											"height": 13,
 											"text": "Program"
@@ -1909,8 +1909,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -16,
-											"top": 80,
+											"left": -144,
+											"top": -16,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from model)"
@@ -1923,15 +1923,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -16,
-											"top": 80,
+											"left": -144,
+											"top": -16,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 1104,
-									"top": 288,
+									"left": 1040,
+									"top": 240,
 									"width": 193.853515625,
 									"height": 38,
 									"stereotypeLabel": {
@@ -1967,8 +1967,8 @@
 												"$ref": "AAAAAAFx5dQ5BEmgDxw="
 											},
 											"font": "Arial;13;0",
-											"left": 1109,
-											"top": 331,
+											"left": 1045,
+											"top": 283,
 											"width": 183.853515625,
 											"height": 13,
 											"text": "~mainDict",
@@ -1976,8 +1976,8 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 1104,
-									"top": 326,
+									"left": 1040,
+									"top": 278,
 									"width": 193.853515625,
 									"height": 23
 								},
@@ -2001,8 +2001,8 @@
 												"$ref": "AAAAAAFx5dO8hUlTTN8="
 											},
 											"font": "Arial;13;0",
-											"left": 1109,
-											"top": 354,
+											"left": 1045,
+											"top": 306,
 											"width": 183.853515625,
 											"height": 13,
 											"text": "+ReadDictionaryFromFile(f: file)",
@@ -2010,8 +2010,8 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 1104,
-									"top": 349,
+									"left": 1040,
+									"top": 301,
 									"width": 193.853515625,
 									"height": 23
 								},
@@ -2026,8 +2026,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -8,
-									"top": 40,
+									"left": -72,
+									"top": -8,
 									"width": 10,
 									"height": 10
 								},
@@ -2042,16 +2042,16 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -8,
-									"top": 40,
+									"left": -72,
+									"top": -8,
 									"width": 10,
 									"height": 10
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 1104,
-							"top": 288,
+							"left": 1040,
+							"top": 240,
 							"width": 193.853515625,
 							"height": 145,
 							"nameCompartment": {
@@ -2404,7 +2404,8 @@
 								"$ref": "AAAAAAFx5dHTFUZ+Zfc="
 							},
 							"name": "mainDict",
-							"visibility": "package"
+							"visibility": "package",
+							"type": ""
 						}
 					],
 					"operations": [
