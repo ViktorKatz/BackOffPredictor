@@ -2,47 +2,13 @@ package model;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.PriorityQueue;
 
 public class Ngram implements Serializable {
 
-	protected class FollowingWord implements Comparable<FollowingWord>{
-		
-		protected final String word;
-		protected int timesAppeared = 1;
-
-		public FollowingWord(String word) {
-			this.word=word;
-		}
-		
-		/**
-		 * @comment Mislim da nam nece trebati.
-		 * @param timesAppeared Ako se rec vec pojavljivala vise puta. 
-		 */
-		public FollowingWord(String word, int timesAppeared) {
-			this(word);
-			this.timesAppeared=timesAppeared;
-		}
-		
-		public String getWord() {
-			return word;
-		}
-		
-		public int getTimesAppeared() {
-			return timesAppeared;
-		}
-		
-		public void increaseTimesAppeared() {
-			timesAppeared++;
-		}
-		
-		@Override
-		public int compareTo(FollowingWord arg0) {
-			return this.timesAppeared-arg0.timesAppeared;
-		}
-		
-	}
-	
 	/**
 	 * Mora imati verziju za serijalizaciju da java ne bi lupila svoju verziju.
 	 * Ako su razlicite verzije, nekad baca gresku.
@@ -52,7 +18,6 @@ public class Ngram implements Serializable {
 	protected final int N;
 	protected final String[] words;
 	protected final PriorityQueue<FollowingWord> predictions;
-	
 	
 	public int getN() {
 		return N;
@@ -68,12 +33,66 @@ public class Ngram implements Serializable {
 		
 		this.N=N;
 		this.words=words;
-		this.predictions=new PriorityQueue<Ngram.FollowingWord>();
+		this.predictions=new PriorityQueue<FollowingWord>();
+	}
+	
+	public List<FollowingWord> getPredictions(int upto){
+		List<FollowingWord> result = new ArrayList<FollowingWord>();
+		
+		for( int i=0; i<upto; ++i) {
+			if(predictions.isEmpty())
+				break;
+			result.add(predictions.poll());
+		}
+		
+		result.forEach(fw -> predictions.add(fw));
+		
+		return result;
 	}
 
+	public void addFollowingWord(String word) {
+		Optional<FollowingWord> existingWord = predictions.parallelStream()
+				.filter( fw -> fw.word==word )
+				.findAny();
+		
+		if(existingWord.isPresent()) {
+			FollowingWord fw = existingWord.get();
+			fw.increaseTimesAppeared();
+			if (predictions.remove(fw))
+				predictions.add(fw);
+		}
+		else {
+			predictions.add(new FollowingWord(word));
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String result="";
+		for(String word : words) {
+			result+=word+" ";
+		}
+		return result + getPredictions(3);
+	}
+	
 	public static void main(String[] args) {
-		System.out.print("Testing testing 123");
+		String[] dveReci = {"Aleks","nosi"};
+		Ngram bi = new Ngram(2, dveReci );
 
+		bi.addFollowingWord("mikrotalasnu");
+		bi.addFollowingWord("pendrek");
+		bi.addFollowingWord("pendrek");
+		bi.addFollowingWord("pendrek");
+		bi.addFollowingWord("kosmodisk");
+		bi.addFollowingWord("kosmodisk");
+		bi.addFollowingWord("macu");
+		bi.addFollowingWord("macu");
+		bi.addFollowingWord("macu");
+		bi.addFollowingWord("macu");
+		bi.addFollowingWord("macu");
+		bi.addFollowingWord("macu");
+		
+		System.out.println(bi);
 	}
 
 }
