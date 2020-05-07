@@ -53,6 +53,15 @@ public class Ngram implements Serializable {
 	protected final String[] words;
 	protected final PriorityQueue<FollowingWord> predictions;
 	
+	
+	public int getN() {
+		return N;
+	}
+
+	public String[] getWords() {
+		return words;
+	}
+
 	public Ngram(int N, String[] words) {
 		if (words.length != N)
 			throw new InvalidParameterException("Ngram nema odgovarajuci broj reci."); 
