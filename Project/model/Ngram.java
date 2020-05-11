@@ -63,7 +63,7 @@ public class Ngram implements Serializable {
 
 	public void addPrediction(String word) {
 		Optional<FollowingWord> existingWord = predictions.parallelStream()
-				.filter( fw -> fw.word==word )
+				.filter( fw -> fw.word.equals(word) )
 				.findAny();
 		
 		if(existingWord.isPresent()) {
@@ -104,7 +104,10 @@ public class Ngram implements Serializable {
 		bi.addPrediction("macu");
 		bi.addPrediction("macu");
 		
-		System.out.println(bi);
+		String[] prazan = {};
+		//Ngram nula=new Ngram(0,prazan);
+		
+		System.out.println(bi);		
 	}
 
 }

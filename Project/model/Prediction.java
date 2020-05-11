@@ -8,4 +8,10 @@ class Prediction {
 		this.word = word;
 		this.probability = probability;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return word+"("+probability+")";
+	}
 }
