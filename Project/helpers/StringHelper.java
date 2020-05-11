@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public abstract class StringHelper {
 	
-	static final String notAllowedChars = "([^A-Za-z\\s.!?-])";
+	static final String notAllowedChars = "([^A-Za-z\\s\\r\\n.!?-])";
 	static final Pattern notAllowedPattern = Pattern.compile(notAllowedChars);
 	
 	
@@ -21,7 +21,7 @@ public abstract class StringHelper {
 	}
 	
 	public static String[] divideToUnigrams(String text) {
-		return text.split(" ");		
+		return text.split("\\s");
 	}
 	
 	public static String mergeStrings(String[] words) {

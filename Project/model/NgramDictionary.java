@@ -98,7 +98,7 @@ public class NgramDictionary implements Serializable {
 		System.out.println(dict.getPredictions("Viktor je", 5));
 		dict.addInstance("Alex", "ima");
 		dict.addInstance("Alex", "ima");
-		System.out.println(dict.getPredictions("Alex ima", 5));
+		System.out.println(dict.getPredictions("Alex", 5));
 	}
 
 }
