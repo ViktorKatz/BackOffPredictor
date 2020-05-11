@@ -1,6 +1,6 @@
 package model;
 
-class FollowingWord implements Comparable<FollowingWord>{
+public class FollowingWord implements Comparable<FollowingWord>{
 	
 	protected final String word;
 	protected int timesAppeared = 1;
