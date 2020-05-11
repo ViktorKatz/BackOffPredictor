@@ -1,9 +1,12 @@
 package model;
 
-import java.io.Serializable;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 import helpers.StringHelper;
 
@@ -47,10 +50,6 @@ public class NgramDictionary implements Serializable {
 		return getPredictions(StringHelper.divideToUnigrams(prefix.trim()), count);
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
-		
-	}
-	
 	private void addAllNgrams(String text, int upto) {
 		String bareText = StringHelper.removeUnwantedChars(text.trim());
 		
@@ -66,6 +65,34 @@ public class NgramDictionary implements Serializable {
 				}
 				addInstance(prefix, words[i]);
 			}
+		}
+	}
+	
+	public NgramDictionary(String filespath, int maxGram) {
+		try {
+			Stream<Path> walk =
+					Files.walk(Paths.get(filespath))
+					.filter(f->StringHelper.isTextFile(f.toString()));
+			
+			walk.forEach(path->{
+				List<String> lines = new ArrayList<String>();
+				try {
+					lines = Files.readAllLines(path,StandardCharsets.UTF_8);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				for (String line : lines) {
+					addAllNgrams(line, maxGram);
+				}
+
+			});
+			
+			walk.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -99,6 +126,9 @@ public class NgramDictionary implements Serializable {
 		dict.addInstance("Alex", "ima");
 		dict.addInstance("Alex", "ima");
 		System.out.println(dict.getPredictions("Alex", 5));
+	
+		NgramDictionary dictFromPath=new NgramDictionary("../Tekstovi",3);
+		System.out.println(dictFromPath.getPredictions("ne", 5));
 	}
 
 }

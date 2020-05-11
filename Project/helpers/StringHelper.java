@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public abstract class StringHelper {
 	
-	static final String notAllowedChars = "([^A-Za-z\\s\\r\\n.!?-])";
+	static final String notAllowedChars = "([^A-Za-zšđčćžŠĐČĆŽ\\s\\r\\n.!?-])";
 	static final Pattern notAllowedPattern = Pattern.compile(notAllowedChars);
 	
 	
@@ -22,6 +22,12 @@ public abstract class StringHelper {
 	
 	public static String[] divideToUnigrams(String text) {
 		return text.split("\\s");
+	}
+	
+	public static boolean isTextFile(String filename) {
+		if(filename.split("\\.").length==0)
+			return false;
+		return filename.split("\\.")[filename.split("\\.").length-1].contentEquals("txt");
 	}
 	
 	public static String mergeStrings(String[] words) {
@@ -46,5 +52,7 @@ public abstract class StringHelper {
 		words[2] = replaceNUMChars(words[2]);
 		
 		System.out.println( mergeStrings(words) );
+		
+		System.out.println( isTextFile("tralala.txt") );
 	}
 }
