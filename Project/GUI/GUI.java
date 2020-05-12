@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
-public class GUI extends Frame implements ActionListener{
+public class GUI extends Frame implements ActionListener, TextListener{
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
+	
 
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
@@ -13,8 +14,14 @@ public class GUI extends Frame implements ActionListener{
 		setLayout(null);
 		setSize(1600, 900);
 		setBackground(Color.lightGray);
-		//setLayout(null);
 		setVisible(true);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+		       dispose(); //close window on X
+			}
+		});
 	}
 
 	public void addMenu() {
@@ -45,38 +52,75 @@ public class GUI extends Frame implements ActionListener{
 	}
 	
 	public void addLabels() {
-		
-		/*Problem je sto kod svake labele zelim da je stavim na tacno 
-		 * odredjeno mesto na frame ali nmg nikako. Svi odgovori koje sam nasla na netu su
-		 * ili sa SWT ili mi kazeu da u konstruktoru stavim setLayout(null) a ja kad stavim
-		 * to setLayout na null prikaze mi prazan panel*/
-		
 		Label label1 = new Label("Enter your text here:");
 		label1.setFont(myFont);
-		label1.setBounds(200, 200, 400, 50);
+		label1.setBounds(100, 100, 400, 50);
 		add(label1);
 		label1.setAlignment(Label.LEFT);
-		//label1.setLocation(10, 30);
 		
 		Label label2 = new Label("Bigram discount in %:");
 		label2.setFont(myFont);
-		label2.setBounds(200, 300, 400, 50);
+		label2.setBounds(100, 400, 400, 50);
 		add(label2);	
 		label2.setAlignment(Label.LEFT);
-		//label2.setLocation(10, 30);
 		
 		Label label3 = new Label("Trigram discount in %:");
 		label3.setFont(myFont);
-		label3.setBounds(200, 400, 400, 50);
+		label3.setBounds(100, 700, 400, 50);
 		add(label3);
 		label3.setAlignment(Label.LEFT);
-		//label3.setLocation(10, 30);
-		
 	}
 	
+	public void addTextBox() {
+		TextArea textArea = new TextArea();
+		add(textArea);
+		textArea.setBounds(500, 110, 400, 170);
+		textArea.setPreferredSize(new Dimension(100,100));
+	}
+	
+	public void addScrollbar() {
+		// dodati jos da value ide u discounte
+		Label bigramLabel = new Label(String.valueOf(0));
+		bigramLabel.setFont(myFont);
+		bigramLabel.setBounds(690, 480, 200, 40);
+		add(bigramLabel);
+		bigramLabel.setAlignment(Label.LEFT);
+		
+		final Scrollbar bigramScroller = new Scrollbar(Scrollbar.HORIZONTAL);
+		bigramScroller.setBounds(500, 400, 400, 50);
+	    bigramScroller.setMaximum (110);
+	    bigramScroller.setMinimum (0);
+	    bigramScroller.addAdjustmentListener(new AdjustmentListener() {
+	       @Override
+	       public void adjustmentValueChanged(AdjustmentEvent e) {
+	          bigramLabel.setText("" +bigramScroller.getValue());
+	       }
+	    });
+	    add(bigramScroller);
+	    
+	    Label trigramLabel = new Label(String.valueOf(0));
+		trigramLabel.setFont(myFont);
+		trigramLabel.setBounds(690, 780, 200, 40);
+		add(trigramLabel);
+		trigramLabel.setAlignment(Label.LEFT);
+	    
+		final Scrollbar trigramScroller = new Scrollbar(Scrollbar.HORIZONTAL);
+		trigramScroller.setBounds(500, 700, 400, 50);
+	    trigramScroller.setMaximum (110);
+	    trigramScroller.setMinimum (0);
+	    trigramScroller.addAdjustmentListener(new AdjustmentListener() {
+	       @Override
+	       public void adjustmentValueChanged(AdjustmentEvent e) {
+	          trigramLabel.setText("" +trigramScroller.getValue());
+	       }
+	    });
+	    add(trigramScroller);
+	}
+
+	
 	public void paint(Graphics g) {
-		//g.setFont(myFont);
-		//g.drawString("Enter your text here: ", 60, 150);
+		g.setFont(myFont);
+	//	g.drawString("Enter your text here: ", 60, 150);
 	}
 	
 	@Override
@@ -92,21 +136,24 @@ public class GUI extends Frame implements ActionListener{
 		
 		}
 		
-		
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				dispose();
-			}
-		});
+	
 	}
 	
 	void addComponents() {
 		addMenu();
 		addLabels();
+		addTextBox();
+		addScrollbar();
 	}
 	
 	public static void main(String args[]) {
 		new GUI();
 	}
+
+	@Override
+	public void textValueChanged(TextEvent t) {
+		// dodaj monogram, biram i trigram		
+	}
+
 
 }
