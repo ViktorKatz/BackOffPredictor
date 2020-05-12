@@ -1,4 +1,4 @@
-package model;
+package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,8 @@ public class GUI extends Frame implements ActionListener{
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
 		addComponents();
-		setSize(1500, 800);
+		setLayout(null);
+		setSize(1600, 900);
 		setBackground(Color.lightGray);
 		//setLayout(null);
 		setVisible(true);
@@ -52,22 +53,24 @@ public class GUI extends Frame implements ActionListener{
 		
 		Label label1 = new Label("Enter your text here:");
 		label1.setFont(myFont);
-		label1.setBounds(50, 100, 100, 30);
-		add(label1, BorderLayout.NORTH);	
+		label1.setBounds(200, 200, 400, 50);
+		add(label1);
 		label1.setAlignment(Label.LEFT);
-		label1.setLocation(10, 30);
+		//label1.setLocation(10, 30);
 		
 		Label label2 = new Label("Bigram discount in %:");
 		label2.setFont(myFont);
-		add(label2, BorderLayout.WEST);	
+		label2.setBounds(200, 300, 400, 50);
+		add(label2);	
 		label2.setAlignment(Label.LEFT);
-		label2.setLocation(10, 30);
+		//label2.setLocation(10, 30);
 		
 		Label label3 = new Label("Trigram discount in %:");
 		label3.setFont(myFont);
-		add(label3, BorderLayout.SOUTH);	
+		label3.setBounds(200, 400, 400, 50);
+		add(label3);
 		label3.setAlignment(Label.LEFT);
-		label3.setLocation(10, 30);
+		//label3.setLocation(10, 30);
 		
 	}
 	
