@@ -13,11 +13,58 @@ import helpers.StringHelper;
 public class NgramDictionary implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String savePath = "../Recnici/";
 
 	private HashMap<String, Ngram> allNgrams = new HashMap<String, Ngram>();
 	
 	public NgramDictionary() {
 		super();
+	}
+	
+	public NgramDictionary(String filespath, int maxGram) {
+		addFromFile(filespath, maxGram);
+	}
+	
+	/**
+	 * @param filespaths Lista putanja 
+	 * @param maxGram
+	 */
+	public NgramDictionary(List<String> filespaths, int maxGram) {
+		for (String filespath : filespaths) {
+			addFromFile(filespath, maxGram);
+		}
+	}
+	
+	/**
+	 * @apiNote Be careful, this adds n-grams to existing dictionary
+	 */
+	public void addFromFile(String filespath, int maxGram) {
+		try {
+			Stream<Path> walk =
+					Files.walk(Paths.get(filespath))
+					.filter(f->StringHelper.isTextFile(f.toString()));
+			
+			walk.forEach(path->{
+				List<String> lines = new ArrayList<String>();
+				try {
+					lines = Files.readAllLines(path,StandardCharsets.UTF_8);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				for (String line : lines) {
+					addAllNgrams(line, maxGram);
+				}
+
+			});
+			
+			walk.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void addInstance(String prefix, String prediction) {
@@ -70,33 +117,50 @@ public class NgramDictionary implements Serializable {
 		}
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
+	public void saveToFile(String filename) {
 		try {
-			Stream<Path> walk =
-					Files.walk(Paths.get(filespath))
-					.filter(f->StringHelper.isTextFile(f.toString()));
+			File file = new File(savePath + filename);
+			file.createNewFile();
 			
-			walk.forEach(path->{
-				List<String> lines = new ArrayList<String>();
-				try {
-					lines = Files.readAllLines(path,StandardCharsets.UTF_8);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				for (String line : lines) {
-					addAllNgrams(line, maxGram);
-				}
-
-			});
+			FileOutputStream fileStream = new FileOutputStream( savePath + filename );
+			ObjectOutputStream outStream = new ObjectOutputStream(fileStream);
 			
-			walk.close();
+			outStream.writeObject(this);
 			
+			outStream.close();
+			fileStream.close();
+			
+		} catch (FileNotFoundException e) {
+			System.err.println("Can not open file to write data.");
+			e.printStackTrace();
 		} catch (IOException e) {
+			System.err.println("Bad path name.");
+			e.printStackTrace();
+		} 
+	}
+	
+	/**
+	 * 
+	 * @throws IOException - Uglavnom FileNotFoundException.
+	 * @throws FileNotFoundException - Uglavnom ako ne postoji takav fajl.
+	 */
+	public void loadFromFile(String filename) throws IOException {
+		
+		FileInputStream inputStream = new FileInputStream(savePath + filename); 
+        ObjectInputStream in = new ObjectInputStream(inputStream); 
+          
+        try {
+			NgramDictionary tmp = (NgramDictionary)in.readObject();
+			allNgrams=tmp.allNgrams;
+		}
+        catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
+        finally {
+			in.close();
+			inputStream.close();
+		}
+	} 
 	
 	public static void main(String[] args) {
 		NgramDictionary dict = new NgramDictionary();
@@ -129,8 +193,15 @@ public class NgramDictionary implements Serializable {
 		dict.addInstance("Alex", "ima");
 		System.out.println(dict.getPredictions("Alex", 5));
 	
-		NgramDictionary dictFromPath=new NgramDictionary("../Tekstovi/Wikipedia",4);
-		System.out.println(dictFromPath.getPredictions("", 5));
+		NgramDictionary dictFromPath=new NgramDictionary();
+		try {
+			dictFromPath.loadFromFile("FirstTestFromWikipedia.dict");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(dictFromPath.getPredictions("je", 5));
+		dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
 	}
 
 }
