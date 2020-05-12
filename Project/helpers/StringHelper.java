@@ -123,5 +123,7 @@ public abstract class StringHelper {
 		System.out.println( mergeStrings(words) );
 		
 		System.out.println( isTextFile("tralala.txt") );
+		
+		System.out.println( cyrillicToLatin("Зашто немаш четири ноге?") );
 	}
 }

@@ -50,6 +50,13 @@ public class NgramDictionary implements Serializable {
 		return getPredictions(StringHelper.divideToUnigrams(prefix.trim()), count);
 	}
 	
+	private void addAllNgrams(String text, int upto, boolean isCyrillic) {
+		if(isCyrillic)
+			text = StringHelper.cyrillicToLatin(text);
+		
+		addAllNgrams(text, upto);
+	}
+	
 	private void addAllNgrams(String text, int upto) {
 		String noRefs = StringHelper.removeParentheses(text.trim());
 		
@@ -70,7 +77,7 @@ public class NgramDictionary implements Serializable {
 		}
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
+	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) {
 		try {
 			Stream<Path> walk =
 					Files.walk(Paths.get(filespath))
@@ -86,7 +93,7 @@ public class NgramDictionary implements Serializable {
 				}
 				
 				for (String line : lines) {
-					addAllNgrams(line, maxGram);
+					addAllNgrams(line, maxGram, isCyrilic);
 				}
 
 			});
@@ -96,6 +103,11 @@ public class NgramDictionary implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+	}
+	
+	public NgramDictionary(String filespath, int maxGram) {
+		this(filespath, maxGram, false);
 	}
 	
 	public static void main(String[] args) {
