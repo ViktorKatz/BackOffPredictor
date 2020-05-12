@@ -20,61 +20,8 @@ public class NgramDictionary implements Serializable {
 		super();
 	}
 	
-	public void addInstance(String prefix, String prediction) {
-		addInstance( StringHelper.divideToUnigrams(prefix.trim()), prediction);
-	}
-	
-	public void addInstance(String[] prefix, String prediction) {
-		String key = StringHelper.mergeStrings(prefix).toLowerCase();
-		
-		if(!allNgrams.containsKey(key)) {
-			allNgrams.put(key, new Ngram( prefix.length , prefix));
-		}
-		
-		allNgrams.get(key).addPrediction(prediction);
-	}
-	
-	public List<Prediction> getPredictions(String[] prefix, int count){
-		String key = StringHelper.mergeStrings(prefix).toLowerCase();
-		
-		if(!allNgrams.containsKey(key)) {
-			return new ArrayList<Prediction>();
-		}
-		else {
-			return allNgrams.get(key).getPredictions(count);
-		}
-		
-	}
-	
-	public List<Prediction> getPredictions(String prefix, int count){
-		return getPredictions(StringHelper.divideToUnigrams(prefix.trim()), count);
-	}
-	
-	private void addAllNgrams(String text, int upto, boolean isCyrillic) {
-		if(isCyrillic)
-			text = StringHelper.cyrillicToLatin(text);
-		
-		addAllNgrams(text, upto);
-	}
-	
-	private void addAllNgrams(String text, int upto) {
-		String noRefs = StringHelper.removeParentheses(text.trim());
-		
-		String bareText = StringHelper.removeUnwantedChars(noRefs);
-		
-		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
-		
-		String[] words = StringHelper.divideToUnigrams(adjustedText);
-		
-		for(int N = 0; N<upto;++N) {
-			String[] prefix = new String[N];
-			for(int i = N; i<words.length;++i) {
-				for(int k=0; k<N;++k) {
-					prefix[k] = words[i-N+k];
-				}
-				addInstance(prefix, words[i]);
-			}
-		}
+	public NgramDictionary(String filespath, int maxGram) {
+		this(filespath, maxGram, false);
 	}
 	
 	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) {
@@ -106,8 +53,61 @@ public class NgramDictionary implements Serializable {
 
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
-		this(filespath, maxGram, false);
+	public void addInstance(String prefix, String prediction) {
+		addInstance( StringHelper.divideToUnigrams(prefix.trim()), prediction);
+	}
+	
+	public void addInstance(String[] prefix, String prediction) {
+		String key = StringHelper.mergeStrings(prefix).toLowerCase();
+		
+		if(!allNgrams.containsKey(key)) {
+			allNgrams.put(key, new Ngram( prefix.length , prefix));
+		}
+		
+		allNgrams.get(key).addPrediction(prediction);
+	}
+	
+	public List<Prediction> getPredictions(String[] prefix, int count){
+		String key = StringHelper.mergeStrings(prefix).toLowerCase();
+		
+		if(!allNgrams.containsKey(key)) {
+			return new ArrayList<Prediction>();
+		}
+		else {
+			return allNgrams.get(key).getPredictions(count);
+		}
+		
+	}
+	
+	public List<Prediction> getPredictions(String prefix, int count){
+		return getPredictions(StringHelper.divideToUnigrams(prefix.trim()), count);
+	}
+	
+	private void addAllNgrams(String text, int upto) {
+		String noRefs = StringHelper.removeParentheses(text.trim());
+		
+		String bareText = StringHelper.removeUnwantedChars(noRefs);
+		
+		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
+		
+		String[] words = StringHelper.divideToUnigrams(adjustedText);
+		
+		for(int N = 0; N<upto;++N) {
+			String[] prefix = new String[N];
+			for(int i = N; i<words.length;++i) {
+				for(int k=0; k<N;++k) {
+					prefix[k] = words[i-N+k];
+				}
+				addInstance(prefix, words[i]);
+			}
+		}
+	}
+	
+	private void addAllNgrams(String text, int upto, boolean isCyrillic) {
+		if(isCyrillic)
+			text = StringHelper.cyrillicToLatin(text);
+		
+		addAllNgrams(text, upto);
 	}
 	
 	public static void main(String[] args) {
