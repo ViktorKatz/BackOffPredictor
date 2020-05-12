@@ -51,7 +51,9 @@ public class NgramDictionary implements Serializable {
 	}
 	
 	private void addAllNgrams(String text, int upto) {
-		String bareText = StringHelper.removeUnwantedChars(text.trim());
+		String noRefs = StringHelper.removeParentheses(text.trim());
+		
+		String bareText = StringHelper.removeUnwantedChars(noRefs);
 		
 		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
 		
@@ -127,8 +129,8 @@ public class NgramDictionary implements Serializable {
 		dict.addInstance("Alex", "ima");
 		System.out.println(dict.getPredictions("Alex", 5));
 	
-		NgramDictionary dictFromPath=new NgramDictionary("../Tekstovi",3);
-		System.out.println(dictFromPath.getPredictions("ne", 5));
+		NgramDictionary dictFromPath=new NgramDictionary("../Tekstovi/Wikipedia",4);
+		System.out.println(dictFromPath.getPredictions("", 5));
 	}
 
 }
