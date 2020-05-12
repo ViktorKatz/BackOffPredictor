@@ -23,11 +23,11 @@ public class NgramDictionary implements Serializable {
 	}
 	
 	public NgramDictionary(String filespath, int maxGram) {
-		addFromFile(filespath, maxGram);
+		this(filespath, maxGram, false);
 	}
 	
 	/**
-	 * @param filespaths Lista putanja 
+	 * @param filespaths Lista foldera u kojima se nalaze tekstovi
 	 * @param maxGram
 	 */
 	public NgramDictionary(List<String> filespaths, int maxGram) {
@@ -39,7 +39,7 @@ public class NgramDictionary implements Serializable {
 	/**
 	 * @apiNote Be careful, this adds n-grams to existing dictionary
 	 */
-	public void addFromFile(String filespath, int maxGram) {
+	public void addFromFile(String filespath, int maxGram, boolean isCyrillic) {
 		try {
 			Stream<Path> walk =
 					Files.walk(Paths.get(filespath))
@@ -55,7 +55,7 @@ public class NgramDictionary implements Serializable {
 				}
 				
 				for (String line : lines) {
-					addAllNgrams(line, maxGram);
+					addAllNgrams(line, maxGram, isCyrillic);
 				}
 
 			});
@@ -65,6 +65,15 @@ public class NgramDictionary implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addFromFile(String filespath, int maxGram) {
+		addFromFile(filespath, maxGram, false);
+	}
+	
+	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) {
+		this();
+		addFromFile(filespath, maxGram, isCyrilic);
 	}
 	
 	public void addInstance(String prefix, String prediction) {
@@ -115,6 +124,13 @@ public class NgramDictionary implements Serializable {
 				addInstance(prefix, words[i]);
 			}
 		}
+	}
+	
+	private void addAllNgrams(String text, int upto, boolean isCyrillic) {
+		if(isCyrillic)
+			text = StringHelper.cyrillicToLatin(text);
+		
+		addAllNgrams(text, upto);
 	}
 	
 	public void saveToFile(String filename) {
@@ -192,7 +208,7 @@ public class NgramDictionary implements Serializable {
 		dict.addInstance("Alex", "ima");
 		dict.addInstance("Alex", "ima");
 		System.out.println(dict.getPredictions("Alex", 5));
-	
+
 		NgramDictionary dictFromPath=new NgramDictionary();
 		try {
 			dictFromPath.loadFromFile("FirstTestFromWikipedia.dict");
@@ -200,7 +216,7 @@ public class NgramDictionary implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(dictFromPath.getPredictions("je", 5));
+		System.out.println(dictFromPath.getPredictions("jer", 5));
 		dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
 	}
 
