@@ -82,7 +82,7 @@ public abstract class StringHelper {
 	}
 	
 	public static String replaceEOSChars(String s) {
-		return s.replaceAll("[.?!]", " EOS");
+		return s.replaceAll("[.?!]", " EOS ");
 	}
 	
 	public static String replaceNUMChars(String s) {

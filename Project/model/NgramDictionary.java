@@ -143,6 +143,9 @@ public class NgramDictionary implements Serializable {
 	
 		NgramDictionary dictFromPath=new NgramDictionary("../Tekstovi/Wikipedia",4);
 		System.out.println(dictFromPath.getPredictions("", 5));
+		
+		NgramDictionary dictETF=new NgramDictionary("../Tekstovi/ETF",3);
+		System.out.println(dictETF.getPredictions("Jel", 5));
 	}
 
 }

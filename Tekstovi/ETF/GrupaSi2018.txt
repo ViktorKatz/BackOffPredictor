@@ -1,0 +1,81 @@
+Pitanje za ljude koji su krenuli AR da rade: Koliko je potrebno da se zna od gradiva sa predavanja i vezbi da bi mogao da se uradi domaci?
+
+ima li neka prezentacija iz objektnog da ne treba da se uci
+ Domaci je odlozen jos 7 dana, dakle do 29.05.2020.
+
+Ako bude bilo potrebno dodatno cemo pomeriti, ako neko ne stigne da uradi, jos par dana
+
+E sad, sto se tice nacina polaganja ispita imamo opciju:
+Na primer, dve nedelje nakon junskog ispitnog roka, da imamo ispit koji je integralan. U svakom ispitnom roku cete moci da radite bilo koji kolokvijum. Na primer izadjete u jednom i uradite dobro prvi i drugi, a na sledecem roku radite samo treci. I to moze u svakom ispitnom roku tako. Dakle da nemamo kolokvijume jer nemamo kad ni da ih spremamo za junski rok. Rekao sam dve nedelje nakon roka da bismo mogli da spremimo uopste bar neki kolokvijum. Naravno ako neko spremi za jun moze slobodno da izadje
+
+Sto se tice laboratorijskih vezbi, bice okaceni snimci na Youtube-u kao tutorijali za njih, povezivanje mikrokontrolera, sa kojih cemo nauciti i odraditi kod kuce same laboratorijske vezbe (preduslov su za ispite, ne nose poene) i onda braniti kad se dogovorimo sa profesorima. Ako nam ne radi, nije problem, pogledace profesori na licu mesta i pomoci ce nam da popravimo sve to
+
+Sto se tice drugog domaceg zadatka (10poena) i projekta (30poena) bice spojeni u jedan projekat koji ce biti verovatno malo obimniji i nosice 40 poena. Moze da se brani bilo kad do oktobra u dogovoru sa profesorima.
+
+Ako neko skupi poene npr sa projekta i prvog kolokvijuma i ima dovoljno za 6 ili vise, a NE ZELI da mu se upise ocena, vec zeli ostale kolokvijume da radi u sledecem roku, samo treba da dodje na uvid ili da se javi sa studentskog mejla profesorima, da ne bi kasnije morao da ponistava tu ocenu
+
+Anketa se odnosi na predlog o odrzavanju ispita kao integralnog gde se u svakom roku mogu raditi bilo koji kolokvijumi i cuvaju se poeni.
+
+Da li vam odgovara?
+Jel ovi iz AR-a planiraju jos par domacih na ovaj sto smo dobili ili samo ovaj 1?
+Moze li neko ko 100% zna kako da ubaci testove u javu da mi se javi, pogledao sam uputstvo i sve uradio po tome al mi i dalje nesto zabada
+Jel se zna kako ce funkcionisati polaganje predmeta sad nakon vanrednog stanja?
+ Ukoliko zelite, mozemo produziti rok za predaju prvog domaceg, dajte predlog u komentarima pa da obavestim profesore
+
+A mozemo i oko odlaganja predispitnih i ispitnih obaveza da se dogovaramo sa njima, ali to je najbolje kad pocnu laboratorijske vezbe na licu mesta
+Поздрав свима!
+
+Надам се да сте добро и да користите ову ситуацију најбоље што можете. Хтео бих да вас обавестим да је у току пријава за Гуглов програм Inside Look, дводневно окупљање студената из ЕМЕА региона. Као прошлогодишњи учесник, изузетно сам задовољан програмом и препоручујем вам да се пријавите. Нажалост, ове године окупљање ће бити виртуелно (прошле године је било у Минхену), али сам сигуран да ће свакако бити занимљиво.
+
+Ако имате неких питања, слободно шаљите поруку или пишите у коментарима.
+jel dozvoljeno koriscenje rekurzije?
+Koleginice i kolege,
+
+Javilo mi se dosta ljudi (između ostalog i delegati sa RTI smera) sa molbom da od predmetnih nastavnika sa OS1 tražimo pomeranje termina za predaju projekta za PREDROK koji je okvirno zakazan za 15. maj.
+
+Molim vas da iako niste zainteresovani za predrok, pročitate tekst i GLASATE, tako ćete mnogo pomoći kolegama koji imaju želju da izađu na predrok. Vas ne košta nista, nekome će značiti.
+
+Razlozi su između ostalog sledeći:
+
+1. U tekstu zadatka za projekat piše da bi trebalo da proverimo pre odbrane da li nam projekat radi u laboratorijama računskog centra, što sada svakako ne bismo mogli da uradimo i da stignemo da ispravimo greške ukoliko istih ima.
+
+2. Predrok je prošle godine bio 3.6.2019.
+
+3. Kolege koje žive van Srbije, najverovatnije ne bi nikako mogle da dođu na odbranu, jer će granice biti zatvorene.
+
+4.Ova situacija uticala je na sve ljude, najviše na one kojima je neko iz porodice bolestan ili da su oni sami bolesni.
+
+Ovime bismo samo tražili da nam zbog drugačijih uslova od svih prethodnih godina dozvole SAMO da kasnije branimo projekat u predroku, makar kad je bio prošle godine 3.6.
+Par pitanja:
+
+    Jel moguce napraviti iterator za 2D vektor da se oba puta koriste napredne for petlje?
+    Jel moguce napraviti 2 iteratora za 2 vektora u okviru jedne klase (posto ne mogu 2 begin i end funkcije, pitam dal postoji nacin)?
+
+hvala unapred!!!
+ jel ima nekoga zainteresovanog za projekat da se udruzimo zajednickim snagama?
+Evo onda ovako: u javnom test primeru, jesu li oni produceri "u jednom bloku", jer mi hvata keypressove samo izmedju dva "ciklusa" (npr. "0 1 2 (random key) 0 1 2", za tri producera. Pitanje je malo specificnije, zato nisam znao da li da ga pitam ovde
+Da nije neko slučajno snimao Hadžićeve vežbe iz AR-a pre par dana? Konkretno prvi čas. Jer na Teams-u ima snimak na kome je sniman pogrešan ekran, a ne znači mi samo zvuk. Ili da li znate da li je RTI imao čas i da li imaju dobre snimke?
+Imate ovde objašnjenje kako da namestite VSCode na virtuelnoj mašini za projekat - onaj Eclipse radi posao, ali i nije baš konfigurabilan. Ima i na sajtu suetfa lepo objašnjenje za Notepad++, ali mislim da je VSCode malo bolji editor teksta. Imate i sve ove fajlove i isti ovaj pdf (i markdown fajl iz kog sam generisao pdf) na sledećem linku:
+
+Pokušao sam donekle da objasnim neke funkcionalnosti bcc-a (uglavnom vezane za ovaj Borlandov C++ - tad nije postojao standard pa će ovo možda makar malo da vam olakša) za koje smatram da mogu da budu korisne, imate ih u ovom dokumentu. Link ka folderu u kome se nalazi ovaj dokument i markdown fajl iz kog sam generisao pdf imate ovde:
+kolokvijum bice u cetvrtak 19og marta u 19h u sali 313
+Predavanja u ponedeljak nece biti, dok ce racunskih vezbi biti u svom terminu
+Ako dodje do nekih promena, javice nam Savic, za sada je ovako
+jel micko rekao da ne treba cela ova prva prezentacija sa vezbi iz rm1 da se uci ili samo neki deo?
+Moze preporuka, Sustran ili Pedja za vezbe iz os-a?
+nadoknada vezbi se nece odrzati u petak 12-14h vec ce biti u prvoj nedelji nakon kolokvijumske. Kolokvijum ce nam svakako biti odlozen nakon kolokvijumske nedelje
+jel ima jos neko da mu ne odgovara nadoknada osa kod urosa u sredu u 5 jer se preklapa i sa hadzicem i sa verovatnocom ko ide?
+Jel ima neko ko je pisao sve lepo i detaljno prosle nedelje na mrezama da mi to posalje bio bih mu zahvalan?
+Da li svima odgovara petak od 12 do 14 za nadoknadu vezbi kod Savica?
+Promena, danas je Milana rekla da
+vežbe četvrtkom od 18 - 20 u 309 drži ona,
+a petkom od 16 - 18 u 61 drži Šuštran
+(Iste učionice/termini kao na rasporedu,samo su se zamenili ko predaje)
+Jel zna neko ko u kom terminu sutra drzi vezbe iz objektnog?
+Termin vezbi ce biti ponedeljkom od 18 do 20h u 61
+Sada u cetvrtak 20. 02.2020 nece biti vezbi
+Vezbe ce biti u subotu jer je tad nadoknada ponedeljka
+Da li vam odgovara da pomerimo termin vezbi na petak od 12:00 do 14:00? Po rasporedu je Jelica tada slobodna a i postoje slobodne sale u Loli. Ako ne odgovara predlozite neki drugi termin.
+ako brucosa mrzi da dolazi na faks svakog utorka sem onda pred kolokvijumsku nedelju i da provede 3 sata tamo, onda bolje da ne uzima predmet. U suprotnom, sto da ne.
+Dosta lak predmet za polaganje. Ima dosta lab vezbi od po 3 sata (skoro svake nedelje nakon sto krenu) koje ukupno vrede 70 poena (mada 70 mozes da prebacis dosta lako al se nece racunati bonus poeni). Na labovima se prvo ispredaje neka tema, i pokazu neki primeri, pa se radi lak test koji obuhvata to sto je ispredavano. Tematika je poprilicno zanimljiva, a sam predmet je konceptuiran da nema bubanja nikakvog (materijali i kodovi sa prethodnih labova su dostupni na svakom labu i na ispitu, sto oduzima dosta posla jer se dosta novih kodova svodi na koriscenje delova iz prethodnih vezbi)
+Ljudi, rekao mi je Mićko da su se za vežbe iz RM-a podelili na blokove. U prvom bloku će sve grupe držati on. Pošto se petkom u terminu 14-16h dve grupe sa vežbama preklapaju, nastava će se držati samo u sali 61.
