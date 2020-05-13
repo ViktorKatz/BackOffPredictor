@@ -133,26 +133,17 @@ public class NgramDictionary implements Serializable {
 		addAllNgrams(text, upto);
 	}
 	
-	public void saveToFile(String filename) {
-		try {
-			File file = new File(savePath + filename);
-			file.createNewFile();
-			
-			FileOutputStream fileStream = new FileOutputStream( savePath + filename );
-			ObjectOutputStream outStream = new ObjectOutputStream(fileStream);
-			
-			outStream.writeObject(this);
-			
-			outStream.close();
-			fileStream.close();
-			
-		} catch (FileNotFoundException e) {
-			System.err.println("Can not open file to write data.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.err.println("Bad path name.");
-			e.printStackTrace();
-		} 
+	public void saveToFile(String filename) throws IOException {
+		File file = new File(savePath + filename);
+		file.createNewFile();
+		
+		FileOutputStream fileStream = new FileOutputStream( savePath + filename );
+		ObjectOutputStream outStream = new ObjectOutputStream(fileStream);
+		
+		outStream.writeObject(this);
+		
+		outStream.close();
+		fileStream.close();
 	}
 	
 	/**
@@ -217,7 +208,7 @@ public class NgramDictionary implements Serializable {
 			e.printStackTrace();
 		}
 		System.out.println(dictFromPath.getPredictions("jer", 5));
-		dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
+		//dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
 	}
 
 }

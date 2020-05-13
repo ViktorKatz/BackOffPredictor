@@ -1,6 +1,6 @@
 package model;
 
-class Prediction {
+public class Prediction {
 	public String word;
 	public double probability;
 	
