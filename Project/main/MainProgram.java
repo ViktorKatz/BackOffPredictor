@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import model.NgramDictionary;
+import model.Prediction;
 
 public final class MainProgram {
 
@@ -52,6 +53,11 @@ public final class MainProgram {
 	
 	public static void makeDictionaryFromDirectories(List<String> paths) throws IOException {
 		currentDictionary = new NgramDictionary(paths, N);
+	}
+	
+	public static List<Prediction> getPredictions(String prefix){
+		//TODO Alex
+		return null;
 	}
 	
 	public static void main(String[] args) {
