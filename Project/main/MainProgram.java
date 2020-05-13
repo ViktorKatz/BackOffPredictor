@@ -10,6 +10,15 @@ public final class MainProgram {
 	//Maksimalno se koriste trigrami, ne ide se do stepena 4+;
 	private static final int N = 3;
 	private static NgramDictionary currentDictionary = new NgramDictionary();
+	private static double discounts[] = new double[N];
+	
+	public void setDiscount(int nGram, double discount) {
+		discounts[nGram-1] = discount;
+	}
+	
+	public double getDiscount(int nGram) {
+		return discounts[nGram-1];
+	}
 	
 	public static void clearDictionary(){
 		currentDictionary = new NgramDictionary();
@@ -32,8 +41,7 @@ public final class MainProgram {
 	 */
 	public static void saveDictionary(String filename) throws IOException {
 		currentDictionary.saveToFile(filename);
-	}
-	
+	}	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
