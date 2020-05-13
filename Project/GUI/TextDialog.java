@@ -18,7 +18,6 @@ public class TextDialog extends Dialog implements ActionListener{
 		addComponents();
 		setLayout(null);
 		setBackground(new Color(207, 235, 249));
-		setVisible(true);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -27,6 +26,8 @@ public class TextDialog extends Dialog implements ActionListener{
 		       //NE RADI
 			}
 		});
+		
+		setVisible(true);
 	}
 
 	private void addComponents() {
