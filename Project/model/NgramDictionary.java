@@ -22,56 +22,59 @@ public class NgramDictionary implements Serializable {
 		super();
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
+	public NgramDictionary(String filespath, int maxGram) throws IOException {
 		this(filespath, maxGram, false);
 	}
 	
 	/**
 	 * @param filespaths Lista foldera u kojima se nalaze tekstovi
-	 * @param maxGram
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
 	 */
-	public NgramDictionary(List<String> filespaths, int maxGram) {
+	public NgramDictionary(List<String> filespaths, int maxGram) throws IOException {
 		for (String filespath : filespaths) {
 			addFromFile(filespath, maxGram);
 		}
 	}
 	
 	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
 	 * @apiNote Be careful, this adds n-grams to existing dictionary
 	 */
-	public void addFromFile(String filespath, int maxGram, boolean isCyrillic) {
-		try {
-			Stream<Path> walk =
-					Files.walk(Paths.get(filespath))
-					.filter(f->StringHelper.isTextFile(f.toString()));
+	public void addFromFile(String filespath, int maxGram, boolean isCyrillic) throws IOException {
+		Stream<Path> walk =
+				Files.walk(Paths.get(filespath))
+				.filter(f->StringHelper.isTextFile(f.toString()));
+		
+		walk.forEach(path->{
+			List<String> lines = new ArrayList<String>();
+			try {
+				lines = Files.readAllLines(path,StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			walk.forEach(path->{
-				List<String> lines = new ArrayList<String>();
-				try {
-					lines = Files.readAllLines(path,StandardCharsets.UTF_8);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				for (String line : lines) {
-					addAllNgrams(line, maxGram, isCyrillic);
-				}
+			for (String line : lines) {
+				addAllNgrams(line, maxGram, isCyrillic);
+			}
 
-			});
-			
-			walk.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
+		
+		walk.close();
 	}
 	
-	public void addFromFile(String filespath, int maxGram) {
+	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
+	 * @apiNote Be careful, this adds n-grams to existing dictionary
+	 */
+	public void addFromFile(String filespath, int maxGram) throws IOException {
 		addFromFile(filespath, maxGram, false);
 	}
 	
-	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) {
+	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
+	 */
+	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) throws IOException {
 		this();
 		addFromFile(filespath, maxGram, isCyrilic);
 	}
@@ -133,26 +136,17 @@ public class NgramDictionary implements Serializable {
 		addAllNgrams(text, upto);
 	}
 	
-	public void saveToFile(String filename) {
-		try {
-			File file = new File(savePath + filename);
-			file.createNewFile();
-			
-			FileOutputStream fileStream = new FileOutputStream( savePath + filename );
-			ObjectOutputStream outStream = new ObjectOutputStream(fileStream);
-			
-			outStream.writeObject(this);
-			
-			outStream.close();
-			fileStream.close();
-			
-		} catch (FileNotFoundException e) {
-			System.err.println("Can not open file to write data.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.err.println("Bad path name.");
-			e.printStackTrace();
-		} 
+	public void saveToFile(String filename) throws IOException {
+		File file = new File(savePath + filename);
+		file.createNewFile();
+		
+		FileOutputStream fileStream = new FileOutputStream( savePath + filename );
+		ObjectOutputStream outStream = new ObjectOutputStream(fileStream);
+		
+		outStream.writeObject(this);
+		
+		outStream.close();
+		fileStream.close();
 	}
 	
 	/**
@@ -217,7 +211,7 @@ public class NgramDictionary implements Serializable {
 			e.printStackTrace();
 		}
 		System.out.println(dictFromPath.getPredictions("jer", 5));
-		dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
+		//dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
 	}
 
 }

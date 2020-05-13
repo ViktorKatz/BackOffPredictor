@@ -104,7 +104,7 @@ public class Ngram implements Serializable {
 		bi.addPrediction("macu");
 		bi.addPrediction("macu");
 		
-		String[] prazan = {};
+		//String[] prazan = {};
 		//Ngram nula=new Ngram(0,prazan);
 		
 		System.out.println(bi);		
