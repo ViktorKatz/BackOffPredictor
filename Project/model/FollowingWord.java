@@ -1,6 +1,10 @@
 package model;
 
-class FollowingWord implements Comparable<FollowingWord>{
+import java.io.Serializable;
+
+public class FollowingWord implements Comparable<FollowingWord>, Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	protected final String word;
 	protected int timesAppeared = 1;

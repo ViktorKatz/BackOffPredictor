@@ -1,0 +1,187 @@
+Поштоване колегинице и колеге,
+
+Консултације из Рачунарских мрежа 1 ове недеље ће бити одржане у редовном термину, у среду, 13.5.2020. године са почетком у 14 часова преко MS Teams платформе. Потребно је да се сви студенти који желе да присуствују консултацијама прикључе састанку преко следећег линка. 
+
+На MS Teams платформи су у оквиру канала за вежбе постављени материјали за ову недељу. Тема ове недеље је NAT. На сутрашњим консултацијама биће приказан и пример задатка какав се може очекивати на испиту, а биће речи и о пројектном задатку који ће бити објављен ускоро.
+
+Срдачан поздрав,
+
+Кристијан Жижа
+
+Поштоване колегинице и колеге,
+
+Ово је грешка у поставци задатка, ради се о делу Б3, упис треба извршити на локацију 9999h, a не на FFFFh. То је сада промењено у поставци.
+
+Postovani,
+u zadatku B3 je trebalo nesto da se smesti na lokaciju FFFFh, medjutim kada se u simulatoru radi store na tu lokaciju simulator ga vrti u beskonacnost. Izgleda da ili ne postoji ta adresa ili nemamo pristup istoj. 
+Srdacan pozdrav
+Veljko Rvovic
+
+ Postovani
+Krenuo sam da radim domaci popunio iv tabelu. Kad probam da asembliram prikazuje ovu gresku
+Index -52 out-of-bounds for length 128
+-----------------------------------------------------
+Kako da protumacim tu gresku?
+Srdacan pozdrav!
+Поштоване колегинице и колеге,
+
+Замолио бих све студенте који се тренутно налазе ван граница територије
+Републике Србије да попуне следећу форму у најкраћем року:
+Мала допуна, на одбрани поред модификације радићете и moodle тест
+који ће садржати питалице које се односе на целокупно градиво. Тест
+ће бити састављен од питалица сличним оним које долазе на улазним тестовима,
+па погледајте примере тестова са сајта предмета. Пошто су многи питали,
+тест неће бити елиминационог карактера.
+
+Такође, промењени су материјали за припрему лабораторијских вежби и домаћи задатак.
+Промена се односи на начин на који се позивају потпрограми. Прочитајте напомене и погледајте
+трећи задатак за припрему лабораторијских вежби који то демонстрира.
+
+Поздрав,
+са предмета
+Поштоване колегинице и колеге,
+
+На сајту предмета је објављен текст домаћег задатка који можете преузети овде.
+
+Потребно је да у фајлу VEZBA.ASM напишете решење задатка, затим да тај фајл зипујете
+и предате домаћи преко форме. Предаја је могућа до 20.05.2020. до 20:00. 
+
+Овај рок је незваничан јер још увек не знамо распоред за коришћење лабораторије,
+али за сада се треба њега придржавати. Постоји могућност да се рок продужи 
+уколико нам то распоред у лабораторији омогућава. Бићете обавештени о тачном термину 
+одбране када буде познат распоред за лабораторију.
+
+Одбрана домаћег задатка ће се састојати од модификације коју радите у лабораторији.
+
+Поздрав,
+са предмета
+
+Поштоване колегинице и колеге,
+
+На сервисима еСтудент можете преузети потврду да од 18. маја имате потврду
+да присуствујете надокнади предиспитних обавеза. Министарство и Студентски
+центар су одобрили да се потврда може издати без печата и она је валидна у
+том облику.
+
+Потврда се, између осталог, може користити и за усељавање у студентске
+домове.
+
+Тачан датум почетка отварања Факултета још увек није одређен, али
+надокнаде лабораторијских вежби (само оних које су апсолутно неопходне)
+сигурно неће почети пре 18. маја.
+
+У случају да усељење у дом почне касније него што је претходно
+најављивано, а поуздане информације о томе још увек нема, почетак
+лабораторијских вежби ће бити померен за неколико дана и бићете о томе
+благовремено информисани.
+
+Поздрав,
+Продекан за наставу
+Поштоване колегинице и колеге,
+
+Обавештавам Вас да се највероватније (уколико буде промена, бићете
+благовремено обавештени о њима) 18.05. почети са лабораторијским вежбама,
+а неколико дана након тога са израдом колоквијума.
+
+НЕЋЕ се одржавати све пропуштене предиспитне обавезе, већ само поједине
+које се буду сматрале неопходнима. У наредним данима ћете добити детаље о
+предметима које слушате од предметних професора.
+Postovane koleginice i kolege,
+
+Na platformi MS Teams je postavljen video snimak jedanaestih po redu vezbi. Pogledajte, pa u toku sledece nedelje na konsultacijama mozete postavljati pitanja.
+
+Поштоване колегинице и колеге,
+ 
+у  петак (08.05.) у 14:15 биће одржане вежбе из Архитектуре рачунара.
+На овим вежбама настављамо са решавањем задатака из области улаз/излаз са DMA.
+ 
+Састанак ће бити покренут у 14:00, док ће час кренути у 14:15.
+ 
+Поздрав,
+Са предмета
+
+Drage kolege,
+
+Casove cemo sutra morati da pomerimo za termin od 18-20h. Kao i obicno,
+molim vas da se u u 18h ulogujete na MS Teams.
+
+Poštovani,
+
+Upravo nam je javljeno da su kolege iz EDUarda juče poslale poziv na
+platformu svim studentima koji su popunili formu za prijavu. Zamolili su
+nas da proverimo sa vama da li su svi dobili pozive na mail, kako bismo ih
+obavestili u slučaju propusta.
+
+Ako bilo ko od studenata koji su se prijavili nije dobio mail kojim mu je
+omogućen pristup platformi, zamolio bih ga da se, nakon proveravanja
+,,spam'' foldera na mailu, mailom na ia@eestec.etf.rs obrati Stevanu
+Đulincu do kraja dana, kako bismo sutra ujutru ispravili eventualnu grešku.
+
+Takođe, zamolili su nas da oni studenti kojima to ne predstavlja
+opterećenje, dok budu prolazili kroz simulaciju zapišu svoja zapažanja u
+vezi sa simulacijom. S  obzirom da smo prvi koji imaju pristup H.art-ovom
+Lideršip modulu, koji je proširen u odnosu na standardni EDUardo lideršip
+modul, biće im dragoceni svi naši utisci i sugestije za unapređenje.
+Studenti mogu da šalju uvide na mejl (milica.mancic@hart.rs) ili da ih
+zapisuju sebi, a H.art će po završetku korišćenja simulacije poslati svima
+formular za evaluaciju u koji će moći da ih unesu.
+На сајтру предмета постављена је презентација десетих вежби, 
+а на платформи MS Teams видео снимци. Следеће недеље 
+на консултацијама можете питати уколико будете имали неких нејасноћа.
+
+Надамо се да сте добро.
+Драге колегинице и колеге,
+
+Студентски парламент Eлектротехничког факултета у сарадњи са деканским
+колегијумом Eлектротехничког факултета спроводи анкету ради прикупљања
+података студената којима је потребно обезбедити брз интернет за праћење
+онлајн наставе.
+
+Представници СКОНУС-а су доставили списак најчешће коришћених сајтова
+којима студенти
+приступају ради праћења онлајн наставе и за које им је потребан брз интернет.
+Кабинет председника Владе је у сарадњи са МТТ обезбедио подршку
+телеоператера да омогуће брз проток ка овим сајтовима за студенте којима
+је то неопходно. Оператери ће обезбедити брз интернет за бројеве телефона
+које ће доставити Канцеларија за ИТ и еУправу.
+
+Потребно је унети име и презиме студената, њихове бројеве телефона и
+називе оператера како би се том броју телефона пустио брз интернет.
+
+Сви прикупљени подаци користиће се искључиво у сврхе омогућавања
+бесплатног интернета и биће достављени потребним институцијама.
+
+Рок за доставу података је четвртак 30. април.
+У случају да се неки студенти не пријаве, списак се накнадно може допунити
+до четвртка 7. маја.
+Izvinjavam se sto pomeram sutrasnje predavanje, ali necu moci da drzim cas
+u zakazano vreme. Dogovorila sam se sa studentima prisutnim na danasnjem
+casu da sledece predavanje bude u petak, 1.5. u 18h. Nadam se da svima
+odgovara, javite se ako ima problema.
+Na OS1 Teams kanalu Vežbe možete sada pronaći i snimak lab vežbi od pre par godina. Lab vežba prati uputstvo koje stoji na sajtu predmeta. 
+Pokazano je Eclipse okruženje i kako se pravi novi projekat, a pored toga se priča i o zadatku koji koristi timer prekidnu rutinu za promenu konteksta, koji smo imali na vežbama.
+ 	
+
+Поштоване колегинице и колеге,
+
+Консултације из Рачунарских мрежа 1 ове недеље ће бити одржане у среду, 29.4.2020. године са почетком у 14 часова преко MS Teams платформе. Потребно је да се сви студенти који желе да присуствују консултацијама прикључе састанку преко следећег линка. 
+Поштоване колегинице и колеге,
+
+Часови вежби из Рачунарских мрежа 1 до краја семестра биће држани у виду групних консултација. Пре сваког термина консултација, на MS Teams платформи ће бити окачени видео снимци које је потребно да проучите. Уз видео снимке добијаћете и почетну конфигурацију Packet Tracer симулације, као и завршну верзију (након свих конфигурација које су обављене на видео снимцима). 
+
+Области које ћемо обрађивати у наредној недељи су: DHCP, ARP и TELNET. Материјали су постављени на каналу Вежбе у секцији са датотекама. 
+
+Замолио бих делегате смерова да ми се што пре јаве мејлом како бисмо се договорили око термина консултација.
+Poštovane koleginice i kolege,
+
+Na platformi MS Teams su postavljeni snimci od ove nedelje, koje možete da pronađete na kanalu Vežbe (Files -> Snimci -> Vežbe 9), dok je odgovarajuća prezentacija postavljena na sajt predmeta.
+Поштоване колегинице и колеге,
+
+Часови вежби из Рачунарских мрежа 1 ове недеље неће бити одржани.
+
+Срдачан поздрав,
+
+Кристијан Жижа
+
+Drugi domaći zadatak će se predavati i predato rešenje će se koristiti na 2. laboratorijskoj vežbi. Za sada rok nije određen, jer ne znamo kada će biti moguće organizovati 2. laboratorijsku vežbu. Studenti će blagovremeno dobiti obaveštenje o predaji DZ2.
+
