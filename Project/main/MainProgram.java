@@ -13,6 +13,12 @@ public final class MainProgram {
 	private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
+	static {
+		for(int i=0;i<N;++i) {
+			discounts[i]=0;
+		}
+	}
+	
 	public void setDiscount(int nGram, double discount) {
 		discounts[nGram-1] = discount;
 	}
