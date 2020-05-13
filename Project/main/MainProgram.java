@@ -2,6 +2,7 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import model.NgramDictionary;
 
@@ -41,7 +42,11 @@ public final class MainProgram {
 	 */
 	public static void saveDictionary(String filename) throws IOException {
 		currentDictionary.saveToFile(filename);
-	}	
+	}
+	
+	public static void makeDictionaryFromDirectories(List<String> paths) throws IOException {
+		currentDictionary = new NgramDictionary(paths, N);
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

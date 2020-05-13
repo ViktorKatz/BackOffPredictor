@@ -22,56 +22,59 @@ public class NgramDictionary implements Serializable {
 		super();
 	}
 	
-	public NgramDictionary(String filespath, int maxGram) {
+	public NgramDictionary(String filespath, int maxGram) throws IOException {
 		this(filespath, maxGram, false);
 	}
 	
 	/**
 	 * @param filespaths Lista foldera u kojima se nalaze tekstovi
-	 * @param maxGram
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
 	 */
-	public NgramDictionary(List<String> filespaths, int maxGram) {
+	public NgramDictionary(List<String> filespaths, int maxGram) throws IOException {
 		for (String filespath : filespaths) {
 			addFromFile(filespath, maxGram);
 		}
 	}
 	
 	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
 	 * @apiNote Be careful, this adds n-grams to existing dictionary
 	 */
-	public void addFromFile(String filespath, int maxGram, boolean isCyrillic) {
-		try {
-			Stream<Path> walk =
-					Files.walk(Paths.get(filespath))
-					.filter(f->StringHelper.isTextFile(f.toString()));
+	public void addFromFile(String filespath, int maxGram, boolean isCyrillic) throws IOException {
+		Stream<Path> walk =
+				Files.walk(Paths.get(filespath))
+				.filter(f->StringHelper.isTextFile(f.toString()));
+		
+		walk.forEach(path->{
+			List<String> lines = new ArrayList<String>();
+			try {
+				lines = Files.readAllLines(path,StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			walk.forEach(path->{
-				List<String> lines = new ArrayList<String>();
-				try {
-					lines = Files.readAllLines(path,StandardCharsets.UTF_8);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				for (String line : lines) {
-					addAllNgrams(line, maxGram, isCyrillic);
-				}
+			for (String line : lines) {
+				addAllNgrams(line, maxGram, isCyrillic);
+			}
 
-			});
-			
-			walk.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
+		
+		walk.close();
 	}
 	
-	public void addFromFile(String filespath, int maxGram) {
+	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
+	 * @apiNote Be careful, this adds n-grams to existing dictionary
+	 */
+	public void addFromFile(String filespath, int maxGram) throws IOException {
 		addFromFile(filespath, maxGram, false);
 	}
 	
-	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) {
+	/**
+	 * @throws IOException Najcesce ako ne postoji odgovarajuci direktorijum
+	 */
+	public NgramDictionary(String filespath, int maxGram, boolean isCyrilic) throws IOException {
 		this();
 		addFromFile(filespath, maxGram, isCyrilic);
 	}
