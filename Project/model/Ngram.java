@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
+import static java.util.stream.Collectors.toList;
 
 public class Ngram implements Serializable {
 
@@ -14,6 +15,7 @@ public class Ngram implements Serializable {
 	protected final int N;
 	protected final String[] words;
 	protected final PriorityQueue<FollowingWord> predictions = new PriorityQueue<FollowingWord>();
+	protected long numberOfPredictions=0;
 	
 	public int getN() {
 		return N;
@@ -23,6 +25,10 @@ public class Ngram implements Serializable {
 		return words;
 	}
 	
+	public long getNumberOfPredictions() {
+		return numberOfPredictions;
+	}
+
 	public Ngram(List<String> words) {
 		N = words.size();
 		this.words = (String[]) words.toArray();
@@ -31,11 +37,11 @@ public class Ngram implements Serializable {
 	public Ngram(int N, String[] words) {
 		if (words.length != N)
 			throw new InvalidParameterException("Ngram nema odgovarajuci broj reci."); 
-		this.N=N;
+		this.N = N;
 		this.words=words;
 	}
 	
-	public List<FollowingWord> getPredictions(int upto){
+	public List<FollowingWord> getFollowingWords(int upto){
 		List<FollowingWord> result = new ArrayList<FollowingWord>();
 		
 		for( int i=0; i<upto; ++i) {
@@ -48,10 +54,16 @@ public class Ngram implements Serializable {
 		
 		return result;
 	}
+	
+	public List<Prediction> getPredictions(int upto){
+		return getFollowingWords(upto).parallelStream()
+				.map(fw -> new Prediction(fw.getWord(), (double)fw.getTimesAppeared()/numberOfPredictions))
+				.collect(toList());
+	}
 
-	public void addFollowingWord(String word) {
+	public void addPrediction(String word) {
 		Optional<FollowingWord> existingWord = predictions.parallelStream()
-				.filter( fw -> fw.word==word )
+				.filter( fw -> fw.word.equals(word) )
 				.findAny();
 		
 		if(existingWord.isPresent()) {
@@ -63,6 +75,7 @@ public class Ngram implements Serializable {
 		else {
 			predictions.add(new FollowingWord(word));
 		}
+		++numberOfPredictions;
 	}
 	
 	@Override
@@ -71,27 +84,30 @@ public class Ngram implements Serializable {
 		for(String word : words) {
 			result+=word+" ";
 		}
-		return result + getPredictions(3);
+		return result + getFollowingWords(3);
 	}
 	
 	public static void main(String[] args) {
 		String[] dveReci = {"Aleks","nosi"};
 		Ngram bi = new Ngram(2, dveReci );
 
-		bi.addFollowingWord("mikrotalasnu");
-		bi.addFollowingWord("pendrek");
-		bi.addFollowingWord("pendrek");
-		bi.addFollowingWord("pendrek");
-		bi.addFollowingWord("kosmodisk");
-		bi.addFollowingWord("kosmodisk");
-		bi.addFollowingWord("macu");
-		bi.addFollowingWord("macu");
-		bi.addFollowingWord("macu");
-		bi.addFollowingWord("macu");
-		bi.addFollowingWord("macu");
-		bi.addFollowingWord("macu");
+		bi.addPrediction("mikrotalasnu");
+		bi.addPrediction("pendrek");
+		bi.addPrediction("pendrek");
+		bi.addPrediction("pendrek");
+		bi.addPrediction("kosmodisk");
+		bi.addPrediction("kosmodisk");
+		bi.addPrediction("macu");
+		bi.addPrediction("macu");
+		bi.addPrediction("macu");
+		bi.addPrediction("macu");
+		bi.addPrediction("macu");
+		bi.addPrediction("macu");
 		
-		System.out.println(bi);
+		String[] prazan = {};
+		//Ngram nula=new Ngram(0,prazan);
+		
+		System.out.println(bi);		
 	}
 
 }
