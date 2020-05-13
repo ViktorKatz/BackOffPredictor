@@ -5,15 +5,17 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
+	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
+	private TextDialog textDialog;
+	private DictDialog dictDialog;
 	
-
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
 		addComponents();
 		setLayout(null);
 		setSize(1600, 900);
-		setBackground(Color.lightGray);
+		setBackground(new Color(207, 235, 249));
 		setVisible(true);
 		
 		addWindowListener(new WindowAdapter() {
@@ -28,30 +30,29 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		MenuBar menuBar = new MenuBar();
 		Menu firstMenu = new Menu("Home"); //save, save as, exit;
 		Menu secondMenu = new Menu("Import File"); //from your computer, from our library {...}
-		Menu thirdMenu = new Menu("Graph Format"); //pie, graph...
+		Menu thirdMenu = new Menu("Chart Type"); //pie, graph...
+		
 		firstMenu.add("Save");
 		firstMenu.add("Save As");
+		firstMenu.add("Clear");
 		firstMenu.add("Exit");
 		firstMenu.addActionListener(this);
 		
-		Menu subMenu = new Menu("From our library");
-		CheckboxMenuItem field = new CheckboxMenuItem("Blogs");
-	    subMenu.add(field);
-	    field = new CheckboxMenuItem("Wikipedia");
-	    subMenu.add(field);
-		secondMenu.add(subMenu);
-		secondMenu.add("From your computer");
+		secondMenu.add("From folder with texts");
+		secondMenu.add("From .dict file");
 		secondMenu.addActionListener(this);
 		
-		thirdMenu.add("Pie");
-		thirdMenu.add("Bar");
+		thirdMenu.add("Pie Chart");
+		thirdMenu.add("Bar Chart");
+		thirdMenu.addActionListener(this);
 		
 		menuBar.add(firstMenu);
 		menuBar.add(secondMenu);
+		menuBar.add(thirdMenu);
 		setMenuBar(menuBar);
 	}
 	
-	public void addLabels() {
+	private void addLabels() {
 		Label label1 = new Label("Enter your text here:");
 		label1.setFont(myFont);
 		label1.setBounds(100, 100, 400, 50);
@@ -71,7 +72,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		label3.setAlignment(Label.LEFT);
 	}
 	
-	public void addTextBox() {
+	private void addTextBox() {
 		TextArea textArea = new TextArea();
 		add(textArea);
 		textArea.setBounds(500, 110, 400, 170);
@@ -128,9 +129,23 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		String command = event.getActionCommand();
 		
 		switch(command) {
+		case "Save":
+			//metoda koja cuva text file/recnik?
+			break;
+		case "Clear":
+			//metoda koja clearuje recnik
+			break;
+		case "Save as":
+			//sacuvaj gde hoces na kompu
+			break;
 		case "Exit":
 			dispose();
-		case "Save":
+		case "From folder with texts":
+			TextDialog t = new TextDialog(this);
+			break;
+		case "From .dict file":
+			DictDialog d = new DictDialog(this);
+			break;
 			
 			
 		
@@ -139,20 +154,21 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	
 	}
 	
-	void addComponents() {
+	private void addComponents() {
 		addMenu();
 		addLabels();
 		addTextBox();
 		addScrollbar();
 	}
-	
-	public static void main(String args[]) {
-		new GUI();
-	}
 
 	@Override
 	public void textValueChanged(TextEvent t) {
 		// dodaj monogram, biram i trigram		
+	}
+	
+	
+	public static void main(String args[]) {
+		new GUI();
 	}
 
 
