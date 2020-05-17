@@ -117,6 +117,10 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    });
 	    add(trigramScroller);
 	}
+	
+	public void addPieChart() {
+		
+	}
 
 	
 	public void paint(Graphics g) {
