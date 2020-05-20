@@ -22,18 +22,18 @@ public final class MainProgram {
 		}
 	}
 	
-	public void setDiscount(int nGram, double discount) {
+	public static void setDiscount(int nGram, double discount) {
 		discounts[nGram-1] = discount;
 	}
 	
-	public double getDiscount(int nGram) {
+	public static double getDiscount(int nGram) {
 		return discounts[nGram-1];
 	}
 	
-	public double getCombinedDiscount(int nGram) {
+	public static double getCoefficient(int nGram) {
 		double result = 1;
-		for(int i=N-1;i>=nGram-1;--i) {
-			result*=discounts[i];
+		for(int i=N-1;i>=nGram;--i) {
+			result*= 1.0 - discounts[i];
 		}
 		return result;
 	}
@@ -73,15 +73,25 @@ public final class MainProgram {
 		List<Prediction> results = new ArrayList<Prediction>();
 		
 		List<Prediction> gramPredictions;
-		for(int i=N-1;i>=0;--i) {
-			//gramPredictions=currentDictionary.getPredictions(/**/, predictionsPerNgram);
+		for(int i= N-1 < words.length ? N-1 : words.length ;i>=0;--i) {
+			String[] lastIWords = StringHelper.getNLastWords(words, i);
+			
+			gramPredictions=currentDictionary.getPredictions(lastIWords, predictionsPerNgram);
+			
+			double coefficient = getCoefficient(i);
+			
+			gramPredictions.parallelStream().forEach( pred -> pred.probability *= coefficient );
+			
+			results.addAll(gramPredictions);
 		}
 		
-		return null;
+		return results;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException {
+		readDictionary("FirstTestFromWikipedia.dict");
+		setDiscount(1, 0.5);
+		System.out.print(getPredictions("se koriste"));
 
 	}
 
