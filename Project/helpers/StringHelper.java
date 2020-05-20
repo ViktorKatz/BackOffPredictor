@@ -7,6 +7,14 @@ public abstract class StringHelper {
 	static final String notAllowedChars = "([^A-Za-z0-9šđčćžŠĐČĆŽ\\s\\r\\n.!?-])";
 	static final Pattern notAllowedPattern = Pattern.compile(notAllowedChars);
 	
+	public static String[] getNLastWords(String[] words, int n) {
+		String[] result = new String[n];
+		for(int i=1;i<=n;++i) {
+			result[n-1] = words[ words.length-i ];
+		}
+		return result;
+	}
+	
 	public static String cyrillicToLatin(String s) {
 		String res = s.replaceAll("а", "a");
 		res = res.replaceAll("б", "b");
