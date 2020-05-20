@@ -2,15 +2,17 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import helpers.StringHelper;
 import model.NgramDictionary;
 import model.Prediction;
 
 public final class MainProgram {
 
-	//Maksimalno se koriste trigrami, ne ide se do stepena 4+;
 	private static final int N = 3;
+	private static final int predictionsPerNgram = 5;
 	private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
@@ -26,6 +28,14 @@ public final class MainProgram {
 	
 	public double getDiscount(int nGram) {
 		return discounts[nGram-1];
+	}
+	
+	public double getCombinedDiscount(int nGram) {
+		double result = 1;
+		for(int i=N-1;i>=nGram-1;--i) {
+			result*=discounts[i];
+		}
+		return result;
 	}
 	
 	public static void clearDictionary(){
@@ -56,7 +66,17 @@ public final class MainProgram {
 	}
 	
 	public static List<Prediction> getPredictions(String prefix){
-		//TODO Alex
+		String cleanPrefix = StringHelper.removeUnwantedChars(prefix);
+		String adjustedPrefix = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(cleanPrefix));
+		String[] words = StringHelper.divideToUnigrams(adjustedPrefix);
+		
+		List<Prediction> results = new ArrayList<Prediction>();
+		
+		List<Prediction> gramPredictions;
+		for(int i=N-1;i>=0;--i) {
+			//gramPredictions=currentDictionary.getPredictions(/**/, predictionsPerNgram);
+		}
+		
 		return null;
 	}
 	
