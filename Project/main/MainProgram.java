@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import helpers.StringHelper;
 import model.NgramDictionary;
@@ -12,7 +13,7 @@ import model.Prediction;
 public final class MainProgram {
 
 	private static final int N = 3;
-	private static final int predictionsPerNgram = 5;
+	private static final int predictionsPerNgram = 2;
 	private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
@@ -32,10 +33,10 @@ public final class MainProgram {
 	
 	public static double getCoefficient(int nGram) {
 		double result = 1;
-		for(int i=N-1;i>=nGram;--i) {
-			result*= 1.0 - discounts[i];
+		for(int i= N-1;i>=nGram;--i) {
+			result *= discounts[i];
 		}
-		return result;
+		return result  * (1 - getDiscount(nGram));
 	}
 	
 	public static void clearDictionary(){
@@ -78,20 +79,36 @@ public final class MainProgram {
 			
 			gramPredictions=currentDictionary.getPredictions(lastIWords, predictionsPerNgram);
 			
-			double coefficient = getCoefficient(i);
+			double coefficient = getCoefficient(i+1);
 			
-			gramPredictions.parallelStream().forEach( pred -> pred.probability *= coefficient );
-			
-			results.addAll(gramPredictions);
+			gramPredictions.stream().forEach( newPrediction -> {
+					newPrediction.probability *= coefficient;
+					Optional<Prediction> existing = results.parallelStream()
+							.filter(presentPrediction -> presentPrediction.word.equals(newPrediction.word))
+							.findAny();
+					
+					if(existing.isPresent())
+						existing.get().probability+=newPrediction.probability;
+					else
+						results.add(newPrediction);
+				});
 		}
+		
+		results.removeIf(prediction -> prediction.probability == 0);//Ako ne postoji discount
 		
 		return results;
 	}
 	
 	public static void main(String[] args) throws IOException {
 		readDictionary("FirstTestFromWikipedia.dict");
-		setDiscount(1, 0.5);
-		System.out.print(getPredictions("se koriste"));
+		
+		setDiscount(3, 0.2);
+		setDiscount(2, 0.3);
+		System.out.println(getCoefficient(1));
+		System.out.println(getCoefficient(2));
+		System.out.println(getCoefficient(3));
+		
+		System.out.println(getPredictions("se koriste"));
 
 	}
 
