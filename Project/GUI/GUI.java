@@ -12,6 +12,9 @@ import helpers.StringHelper;
 import main.MainProgram;
 import model.Prediction;
 
+import java.util.stream.Collectors;
+import java.util.stream.Collectors.* ;
+
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
@@ -126,7 +129,41 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	}
 	
 	public void updateChart(List<Prediction> dataList) {
-	   // MainProgram.getPredictions(prefix);
+	   String[][] data = new String[10][2];
+	   
+	   List<String[]> dataStringList = dataList.stream()
+	   .sorted( (Prediction pr1, Prediction pr2) -> {
+		   if(pr1.probability > pr2.probability)
+			   return -1;
+		   if(pr1.probability < pr2.probability)
+			   return 1;
+		   return 0;
+	   } )
+	   .limit(10)
+	   .map(pr -> new String[] {pr.word, Double.toString(pr.probability)} )
+	   .collect( Collectors.toList() ) ;
+	   
+	   System.out.println(dataStringList);
+	   
+	   dataStringList.toArray(data);
+	   
+//Pravi tabelu:
+	   String[] columnHeaders={"Word", "Probability"};
+	   table = new JTable(data, columnHeaders) {
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        }
+		};
+
+	    table.setPreferredScrollableViewportSize(new Dimension(600, 400));
+	    table.setRowHeight(50);
+	    table.getColumnModel().getColumn(0).setPreferredWidth(100);
+	    table.getColumnModel().getColumn(1).setPreferredWidth(100);
+	    panel.add(new JScrollPane(table), BorderLayout.WEST);
+	    panel.setBounds(870, 150, 800, 500);
+		add(panel);
 	}
 	
 	public void addPanel() {
@@ -232,7 +269,8 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		List<Prediction> predictions = MainProgram.getPredictions(prefix);
 		
 		System.out.println(predictions);
-		//TODO Add querrying and displaying
+		
+		updateChart(predictions);
 	}
 	
 	
