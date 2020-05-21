@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import helpers.StringHelper;
 import main.MainProgram;
 import model.Prediction;
 
@@ -18,6 +19,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
 	Panel panel = new Panel();
+	private TextArea textArea;
 
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
@@ -74,7 +76,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	}
 	
 	private void addTextBox() {
-		TextArea textArea = new TextArea();
+		textArea = new TextArea();
 		textArea.setFont(myFont);
 		add(textArea);
 		textArea.setBounds(500, 110, 400, 170);
@@ -199,7 +201,26 @@ public class GUI extends Frame implements ActionListener, TextListener{
 
 	@Override
 	public void textValueChanged(TextEvent t) {
-		// dodaj monogram, biram i trigram		
+		String text = textArea.getText();
+		
+		if(!text.endsWith(" "))
+			return;		//The chart is updated only on spacebar
+		
+		String bareText = StringHelper.removeUnwantedChars(text);
+		
+		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
+	
+		String[] words = StringHelper.divideToUnigrams(adjustedText);
+		
+		if(words.length<2)
+			return;		//The chart is updated only when there is enough data for a prefix.
+		
+		String[] prefix = StringHelper.getNLastWords(words, 2);
+		
+		List<Prediction> predictions = MainProgram.getPredictions(prefix);
+		
+		System.out.println(predictions);
+		//TODO Add querrying and displaying
 	}
 	
 	

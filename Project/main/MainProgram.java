@@ -3,8 +3,10 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import helpers.StringHelper;
 import model.NgramDictionary;
@@ -64,6 +66,11 @@ public final class MainProgram {
 	
 	public static void makeDictionaryFromDirectories(List<String> paths) throws IOException {
 		currentDictionary = new NgramDictionary(paths, N);
+	}
+	
+	public static List<Prediction> getPredictions(String[] words){
+		String prefix = Arrays.stream(words).reduce("", (s1,s2) -> s1+" "+s2);
+		return getPredictions(prefix);
 	}
 	
 	public static List<Prediction> getPredictions(String prefix){
