@@ -3,11 +3,13 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.*;
 
 import helpers.StringHelper;
 import main.MainProgram;
+import model.Prediction;
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
@@ -212,9 +214,14 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	
 		String[] words = StringHelper.divideToUnigrams(adjustedText);
 		
-		if(words.length<3)
+		if(words.length<2)
 			return;		//The chart is updated only when there is enough data for a prefix.
 		
+		String[] prefix = StringHelper.getNLastWords(words, 2);
+		
+		List<Prediction> predictions = MainProgram.getPredictions(prefix);
+		
+		System.out.println(predictions);
 		//TODO Add querrying and displaying
 	}
 	
