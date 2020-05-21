@@ -46,7 +46,6 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 	}
 	
 	private void addChoice() {
-		//ako je prazna throwuj new exception koji ti kaze da moras da izaberes neki osim ako si kliknuo X
         for (File file : listOfFiles) {
 			choice.add(file.getName());
         }
