@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*; 
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
@@ -117,6 +118,17 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    });
 	    add(trigramScroller);
 	}
+	
+	public void addPanel() {
+		Panel panel = new Panel();
+		panel.setBackground(new Color(255,255,153));
+		
+		JList list = new JList<String>();
+		
+		
+		
+		add(panel,BorderLayout.WEST);
+	}
 
 	
 	public void paint(Graphics g) {
@@ -159,6 +171,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		addLabels();
 		addTextBox();
 		addScrollbar();
+		addPanel();
 	}
 
 	@Override

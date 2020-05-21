@@ -22,8 +22,7 @@ public class TextDialog extends Dialog implements ActionListener{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-		       dispose(); //close window on X
-		       //NE RADI
+		       dispose();
 			}
 		});
 		
@@ -51,9 +50,11 @@ public class TextDialog extends Dialog implements ActionListener{
 	}
 	
 	private void addLabel() {
-		label.setBounds(100, 50, 100, 50);
+		label.setAlignment(Label.CENTER);
+		//label.setBounds(100, 50, 150, 150);
 		label.setFont(myFont);
-		add(label);
+		//add(label);
+		add(label, BorderLayout.NORTH);
 	}
 	
 	private void addButtons() {
