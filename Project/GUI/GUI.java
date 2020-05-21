@@ -5,10 +5,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.List;
 
-import javax.swing.*; 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.*;
+import javax.swing.table.*;
 
 import helpers.StringHelper;
 import main.MainProgram;
@@ -18,8 +16,9 @@ import model.Prediction;
 public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
-	Panel panel = new Panel();
+	private Panel panel = new Panel();
 	private TextArea textArea;
+	private  JTable table;
 
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
@@ -27,6 +26,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		setLayout(null);
 		setSize(1600, 900);
 		setBackground(new Color(207, 235, 249));
+		setResizable(false);
 		setVisible(true);
 		
 		addWindowListener(new WindowAdapter() {
@@ -58,19 +58,19 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	private void addLabels() {
 		Label label1 = new Label("Enter your text here:");
 		label1.setFont(myFont);
-		label1.setBounds(100, 100, 400, 50);
+		label1.setBounds(100, 100, 300, 50);
 		add(label1);
 		label1.setAlignment(Label.LEFT);
 		
 		Label label2 = new Label("Bigram discount in %:");
 		label2.setFont(myFont);
-		label2.setBounds(100, 400, 400, 50);
+		label2.setBounds(100, 600, 400, 50);
 		add(label2);	
 		label2.setAlignment(Label.LEFT);
 		
 		Label label3 = new Label("Trigram discount in %:");
 		label3.setFont(myFont);
-		label3.setBounds(100, 700, 400, 50);
+		label3.setBounds(100, 750, 400, 50);
 		add(label3);
 		label3.setAlignment(Label.LEFT);
 	}
@@ -79,7 +79,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		textArea = new TextArea();
 		textArea.setFont(myFont);
 		add(textArea);
-		textArea.setBounds(500, 110, 400, 170);
+		textArea.setBounds(100, 150, 800, 400);
 		textArea.setPreferredSize(new Dimension(100,100));
 	}
 	
@@ -87,12 +87,12 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		// dodati jos da value ide u discounte
 		Label bigramLabel = new Label(String.valueOf(0));
 		bigramLabel.setFont(myFont);
-		bigramLabel.setBounds(690, 480, 200, 40);
+		bigramLabel.setBounds(690, 650, 200, 40);
 		add(bigramLabel);
 		bigramLabel.setAlignment(Label.LEFT);
 		
 		final Scrollbar bigramScroller = new Scrollbar(Scrollbar.HORIZONTAL);
-		bigramScroller.setBounds(500, 400, 400, 50);
+		bigramScroller.setBounds(500, 600, 400, 50);
 	    bigramScroller.setMaximum (110);
 	    bigramScroller.setMinimum (0);
 	    bigramScroller.addAdjustmentListener(new AdjustmentListener() {
@@ -106,12 +106,12 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    
 	    Label trigramLabel = new Label(String.valueOf(0));
 		trigramLabel.setFont(myFont);
-		trigramLabel.setBounds(690, 780, 200, 40);
+		trigramLabel.setBounds(690, 800, 200, 40);
 		add(trigramLabel);
 		trigramLabel.setAlignment(Label.LEFT);
 	    
 		final Scrollbar trigramScroller = new Scrollbar(Scrollbar.HORIZONTAL);
-		trigramScroller.setBounds(500, 700, 400, 50);
+		trigramScroller.setBounds(500, 750, 400, 50);
 	    trigramScroller.setMaximum (110);
 	    trigramScroller.setMinimum (0);
 	    trigramScroller.addAdjustmentListener(new AdjustmentListener() {
@@ -124,21 +124,29 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    add(trigramScroller);
 	}
 	
-	public void updateChart(List<Prediction> data) {
+	public void updateChart(List<Prediction> dataList) {
 	    MainProgram.getPredictions(prefix);
 	}
 	
 	public void addPanel() {
-		
-		DefaultTableModel model = new DefaultTableModel();
-	    JTable table = new JTable(model);
-	    model.addColumn("Probability");
-	    //table.getColumnModel().getColumn(0).setHeaderValue("New Name");
-	    //table.getTableHeader().resizeAndRepaint();
-	    table.setBackground(new Color(255,255,153));
-	    
-	    panel.add(table);
-		add(panel,BorderLayout.WEST);
+		String[] columnHeaders={"Word", "Probability"};
+		String[][] data = new String[10][2];
+		table = new JTable(data, columnHeaders) {
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        }
+		};
+
+	    table.setPreferredScrollableViewportSize(new Dimension(600, 400));
+	    table.setRowHeight(50);
+	    table.getColumnModel().getColumn(0).setPreferredWidth(100);
+	    table.getColumnModel().getColumn(1).setPreferredWidth(100);
+
+	    panel.add(new JScrollPane(table), BorderLayout.WEST);
+	    panel.setBounds(870, 150, 800, 500);
+		add(panel);
 	}
 	
 	public void paint(Graphics g) {

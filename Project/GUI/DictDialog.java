@@ -29,6 +29,7 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 		setSize(300, 200);
 		addComponents();
 		setLayout(null);
+		setResizable(false);
 		setBackground(new Color(207, 235, 249));
 		
 		addWindowListener(new WindowAdapter() {

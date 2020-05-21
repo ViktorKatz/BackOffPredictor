@@ -19,6 +19,7 @@ public class TextDialog extends Dialog implements ActionListener{
 		setFont(myFont);
 		addComponents();
 		setLayout(null);
+		setResizable(false);
 		setBackground(new Color(207, 235, 249));
 		
 		addWindowListener(new WindowAdapter() {
