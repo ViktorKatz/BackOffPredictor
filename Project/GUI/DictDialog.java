@@ -37,6 +37,7 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 	
 	private void addComponents() {
 		addChoice();
+		addButton();
 	}
 	
 	private void addChoice() {
@@ -45,17 +46,17 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 			choice.add(file.getName());
         }
         choice.addItemListener(this);
-        choice.setBounds(100, 80, 100, 40);
+        choice.setBounds(50, 80, 200, 70);
         add(choice);
 	}
 	
 	private void addButton() {
 		Button button = new Button("OK");
-		button.setFont(myFont);
-		button.setBounds(270, 180, 20, 10);
-		add(button);
+		//button.setFont(myFont);
+		button.setBounds(210, 170, 80, 20);
 		button.addActionListener(this);
 		button.setBackground(Color.LIGHT_GRAY);
+		add(button);
 	}
 	
 	@Override

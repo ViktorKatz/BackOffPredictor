@@ -11,9 +11,7 @@ import main.MainProgram;
 public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
-	private TextDialog textDialog;
-	private DictDialog dictDialog;
-	
+
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
 		addComponents();
