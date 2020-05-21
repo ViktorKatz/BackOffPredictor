@@ -15,7 +15,7 @@ import model.Prediction;
 public final class MainProgram {
 
 	private static final int N = 3;
-	private static final int predictionsPerNgram = 2;
+	private static final int predictionsPerNgram = 10;
 	volatile private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
