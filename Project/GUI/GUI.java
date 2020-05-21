@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*; 
+import main.MainProgram;
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
@@ -97,6 +98,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	       @Override
 	       public void adjustmentValueChanged(AdjustmentEvent e) {
 	          bigramLabel.setText("" +bigramScroller.getValue());
+	          MainProgram.setDiscount(2, bigramScroller.getValue()/100.0);
 	       }
 	    });
 	    add(bigramScroller);
@@ -115,6 +117,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	       @Override
 	       public void adjustmentValueChanged(AdjustmentEvent e) {
 	          trigramLabel.setText("" +trigramScroller.getValue());
+	          MainProgram.setDiscount(3, trigramScroller.getValue()/100.0);
 	       }
 	    });
 	    add(trigramScroller);
