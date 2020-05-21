@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
+//import javax.swing.filechooser.FileSystemView;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -52,10 +52,6 @@ public class TextDialog extends Dialog implements ActionListener{
 	}
 	
 	private void addLabel() {
-		//label.setAlignment(Label.CENTER);
-		//label.setBounds(20, 30, 280, 150);
-		//label.setFont(myFont);
-		//add(label);
 		textArea.setText("Choose a file: ");
 		textArea.setBounds(20, 20, 260, 100);
 	    textArea.setWrapStyleWord(true);

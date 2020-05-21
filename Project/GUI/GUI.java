@@ -5,6 +5,9 @@ import java.awt.event.*;
 import java.io.IOException;
 
 import javax.swing.*; 
+import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+
 import main.MainProgram;
 
 @SuppressWarnings("serial")
@@ -31,26 +34,18 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	public void addMenu() {
 		MenuBar menuBar = new MenuBar();
 		Menu firstMenu = new Menu("Home"); //save, save as, exit;
-		Menu secondMenu = new Menu("Import File"); //from your computer, from our library {...}
-		Menu thirdMenu = new Menu("Chart Type"); //pie, graph...
+		Menu secondMenu = new Menu("Import Data");
 		
 		firstMenu.add("Save");
-		firstMenu.add("Save As");
 		firstMenu.add("Clear");
 		firstMenu.add("Exit");
 		firstMenu.addActionListener(this);
-		
-		secondMenu.add("From folder with texts");
-		secondMenu.add("From .dict file");
+		secondMenu.add("Import .dict file");
+		secondMenu.add("Add Data from .txt file");
 		secondMenu.addActionListener(this);
-		
-		thirdMenu.add("Pie Chart");
-		thirdMenu.add("Bar Chart");
-		thirdMenu.addActionListener(this);
 		
 		menuBar.add(firstMenu);
 		menuBar.add(secondMenu);
-		menuBar.add(thirdMenu);
 		setMenuBar(menuBar);
 	}
 	
@@ -127,13 +122,14 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		Panel panel = new Panel();
 		panel.setBackground(new Color(255,255,153));
 		
-		JList list = new JList<String>();
 		
+		JTable table = new JTable();
+		TableColumn t1 = new TableColumn();
+		//table.addColumn(arg0);
 		
 		
 		add(panel,BorderLayout.WEST);
 	}
-
 	
 	public void paint(Graphics g) {
 		g.setFont(myFont);
@@ -169,15 +165,12 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		case "Clear":
 			//metoda koja clearuje recnik
 			break;
-		case "Save as":
-			//sacuvaj gde hoces na kompu
-			break;
 		case "Exit":
 			dispose();
-		case "From folder with texts":
+		case "Add Data from .txt file":
 			TextDialog t = new TextDialog(this);
 			break;
-		case "From .dict file":
+		case "Import .dict file":
 			DictDialog d = new DictDialog(this);
 			break;
 			
