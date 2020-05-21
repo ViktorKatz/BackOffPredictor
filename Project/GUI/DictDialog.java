@@ -66,17 +66,7 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		/*
-		//String file = choice.getSelectedItem() + "";
-		Desktop desktop = Desktop.getDesktop();
-		File file = new File(path+choice.getSelectedItem());
-		String filePath = file.getAbsolutePath();
-		try {
-          // desktop.open(file); 
-          desktop.open(new File(filePath));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }*/
+		
 	}
 
 	@Override
