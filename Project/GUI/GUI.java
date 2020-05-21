@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*; 
 import main.MainProgram;
 
@@ -146,7 +148,25 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		
 		switch(command) {
 		case "Save":
-			//metoda koja cuva text file/recnik?
+			String filename = (String)JOptionPane.showInputDialog(
+                    this,
+                    "Please enter the custom filename:\n",
+                    "Saving...",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "");
+			
+			try {
+				MainProgram.saveDictionary(filename);
+			}
+			catch(IOException e) {
+				JOptionPane.showMessageDialog(this,
+					    "Error in saving the file!\nPlease try with another filename.",
+					    "Error",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+			
 			break;
 		case "Clear":
 			//metoda koja clearuje recnik

@@ -206,11 +206,12 @@ public class NgramDictionary implements Serializable {
 		NgramDictionary dictFromPath=new NgramDictionary();
 		try {
 			dictFromPath.loadFromFile("FirstTestFromWikipedia.dict");
+			dictFromPath.addFromFile("../Tekstovi/ETF/", 3);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(dictFromPath.getPredictions("jer", 5));
+		System.out.println(dictFromPath.getPredictions("Postovane", 5));
 		//dictFromPath.saveToFile("FirstTestFromWikipedia.dict");
 	}
 
