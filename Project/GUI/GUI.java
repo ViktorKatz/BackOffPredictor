@@ -4,14 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-import javax.swing.*; 
+import javax.swing.*;
+
+import helpers.StringHelper;
 import main.MainProgram;
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
-
+	private TextArea textArea;
+	
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
 		addComponents();
@@ -75,7 +78,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	}
 	
 	private void addTextBox() {
-		TextArea textArea = new TextArea();
+		textArea = new TextArea();
 		textArea.setFont(myFont);
 		add(textArea);
 		textArea.setBounds(500, 110, 400, 170);
@@ -198,7 +201,21 @@ public class GUI extends Frame implements ActionListener, TextListener{
 
 	@Override
 	public void textValueChanged(TextEvent t) {
-		// dodaj monogram, biram i trigram		
+		String text = textArea.getText();
+		
+		if(!text.endsWith(" "))
+			return;		//The chart is updated only on spacebar
+		
+		String bareText = StringHelper.removeUnwantedChars(text);
+		
+		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
+	
+		String[] words = StringHelper.divideToUnigrams(adjustedText);
+		
+		if(words.length<3)
+			return;		//The chart is updated only when there is enough data for a prefix.
+		
+		//TODO Add querrying and displaying
 	}
 	
 	
