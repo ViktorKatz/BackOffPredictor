@@ -109,7 +109,12 @@ public final class MainProgram {
 		System.out.println(getCoefficient(3));
 		
 		System.out.println(getPredictions("se koriste"));
-
+		
+		clearDictionary();
+		List<String> paths = new ArrayList<String>();
+		paths.add("../Tekstovi/ETF");
+		makeDictionaryFromDirectories(paths);
+		//saveDictionary("TestEtf.dict");
 	}
 
 }
