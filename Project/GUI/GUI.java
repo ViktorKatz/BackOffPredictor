@@ -77,6 +77,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		textArea = new TextArea();
 		textArea.setFont(myFont);
 		add(textArea);
+		textArea.addTextListener(this);
 		textArea.setBounds(500, 110, 400, 170);
 		textArea.setPreferredSize(new Dimension(100,100));
 	}
@@ -195,6 +196,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 
 	@Override
 	public void textValueChanged(TextEvent t) {
+		
 		String text = textArea.getText();
 		
 		if(!text.endsWith(" "))
@@ -205,6 +207,8 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		String adjustedText = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(bareText));
 	
 		String[] words = StringHelper.divideToUnigrams(adjustedText);
+		
+		MainProgram.addToCurrentDictionary(words);
 		
 		if(words.length<2)
 			return;		//The chart is updated only when there is enough data for a prefix.
