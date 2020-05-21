@@ -25,7 +25,6 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 		addComponents();
 		setLayout(null);
 		setBackground(new Color(207, 235, 249));
-		setVisible(true);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -33,6 +32,7 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 		       dispose(); //close window on X
 			}
 		});
+		setVisible(true);
 	}
 	
 	private void addComponents() {

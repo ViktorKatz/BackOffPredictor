@@ -5,11 +5,13 @@ import java.awt.event.*;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class TextDialog extends Dialog implements ActionListener{
 	private Font myFont = new Font("SansSerif", Font.ITALIC, 12);
-	Label label = new Label("Choose a file:");
+	JTextArea textArea = new JTextArea("Choose a file:");
+	//Label label = new Label("Choose a file:");
 
 	public TextDialog(Frame parent) {
 		super(parent, "Import text file", true); 
@@ -44,17 +46,27 @@ public class TextDialog extends Dialog implements ActionListener{
 
 		int returnValue = fileChooser.showOpenDialog(this);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			label.setText("Izabrano: " + fileChooser.getSelectedFile().getPath());
+			textArea.setText("Izabrano: " + fileChooser.getSelectedFile().getPath());
 			//fileChooser.getSelectedFile(); fajl koji ce se koristiti
 		}
 	}
 	
 	private void addLabel() {
-		label.setAlignment(Label.CENTER);
-		//label.setBounds(100, 50, 150, 150);
-		label.setFont(myFont);
+		//label.setAlignment(Label.CENTER);
+		//label.setBounds(20, 30, 280, 150);
+		//label.setFont(myFont);
 		//add(label);
-		add(label, BorderLayout.NORTH);
+		textArea.setText("Choose a file: ");
+		textArea.setBounds(20, 20, 260, 100);
+	    textArea.setWrapStyleWord(true);
+	    textArea.setLineWrap(true);
+	    textArea.setOpaque(false);
+	    textArea.setEditable(false);
+	    textArea.setFocusable(false);
+	    textArea.setBackground(UIManager.getColor("Label.background"));
+	    textArea.setFont(myFont);
+	    textArea.setBorder(UIManager.getBorder("Label.border"));
+	    add(textArea);
 	}
 	
 	private void addButtons() {
