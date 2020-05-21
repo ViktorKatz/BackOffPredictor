@@ -3,17 +3,21 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.*; 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import main.MainProgram;
+import model.Prediction;
 
 @SuppressWarnings("serial")
 public class GUI extends Frame implements ActionListener, TextListener{
 	//dodati greske: kad ne unese nikakav folder/file, bigram disconts
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
+	Panel panel = new Panel();
 
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
@@ -118,21 +122,25 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    add(trigramScroller);
 	}
 	
+	public void updateChart(List<Prediction> data) {
+	    MainProgram.getPredictions(prefix);
+	}
+	
 	public void addPanel() {
-		Panel panel = new Panel();
-		panel.setBackground(new Color(255,255,153));
 		
-		
-		JTable table = new JTable();
-		TableColumn t1 = new TableColumn();
-		//table.addColumn(arg0);
-		
-		
+		DefaultTableModel model = new DefaultTableModel();
+	    JTable table = new JTable(model);
+	    model.addColumn("Probability");
+	    //table.getColumnModel().getColumn(0).setHeaderValue("New Name");
+	    //table.getTableHeader().resizeAndRepaint();
+	    table.setBackground(new Color(255,255,153));
+	    
+	    panel.add(table);
 		add(panel,BorderLayout.WEST);
 	}
 	
 	public void paint(Graphics g) {
-		g.setFont(myFont);
+	//	g.setFont(myFont);
 	//	g.drawString("Enter your text here: ", 60, 150);
 	}
 	
