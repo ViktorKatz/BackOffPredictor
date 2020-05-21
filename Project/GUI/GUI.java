@@ -75,6 +75,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	
 	private void addTextBox() {
 		TextArea textArea = new TextArea();
+		textArea.setFont(myFont);
 		add(textArea);
 		textArea.setBounds(500, 110, 400, 170);
 		textArea.setPreferredSize(new Dimension(100,100));
