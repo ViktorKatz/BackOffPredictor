@@ -16,7 +16,7 @@ public final class MainProgram {
 
 	private static final int N = 3;
 	private static final int predictionsPerNgram = 2;
-	private static NgramDictionary currentDictionary = new NgramDictionary();
+	volatile private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
 	static {
@@ -104,6 +104,19 @@ public final class MainProgram {
 		results.removeIf(prediction -> prediction.probability == 0);//Ako ne postoji discount
 		
 		return results;
+	}
+	
+	public static void addToCurrentDictionary(String[] words) {
+		if(words.length<=0)
+			return;
+		
+		String prediction = words[words.length-1];
+		
+		for(int prefixSize=0;prefixSize<(N<words.length?N:words.length); ++prefixSize) {
+			String[] prefix = Arrays.copyOfRange(words, words.length-1-prefixSize, words.length-1);
+			
+			currentDictionary.addInstance(prefix, prediction);
+		}
 	}
 	
 	public static void main(String[] args) throws IOException {
