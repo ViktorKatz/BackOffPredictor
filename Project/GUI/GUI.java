@@ -23,7 +23,8 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	private Font myFont = new Font("SansSerif", Font.BOLD, 24);
 	private Panel panel = new Panel();
 	private TextArea textArea;
-	private  JTable table;
+	private JTable table;
+	private final static int predictionsShown = 10;
 
 	public GUI() throws HeadlessException {
 		super("Back-off Prediction");
@@ -130,9 +131,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    add(trigramScroller);
 	}
 	
-	public void updateChart(List<Prediction> dataList) {
-	   String[][] data = new String[10][2];
-	   
+	public void updateChart(List<Prediction> dataList) {	   
 	   List<String[]> dataStringList = dataList.stream()
 	   .sorted( (Prediction pr1, Prediction pr2) -> {
 		   if(pr1.probability > pr2.probability)
@@ -141,7 +140,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 			   return 1;
 		   return 0;
 	   } )
-	   .limit(10)
+	   .limit(predictionsShown)
 	   .map( new Function<Prediction, String[]>() {
 		@Override
 		public String[] apply(Prediction pred) {
@@ -151,31 +150,29 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	   })
 	   .collect( Collectors.toList() ) ;
 	   
-	   dataStringList.toArray(data);
-	   
-//Pravi tabelu:
-	   String[] columnHeaders={"Word", "Probability"};
-	   table = new JTable(data, columnHeaders) {
-	        private static final long serialVersionUID = 1L;
-
-	        public boolean isCellEditable(int row, int column) {                
-	                return false;               
-	        }
-		};
-
-	    table.setPreferredScrollableViewportSize(new Dimension(600, 400));
-	    table.setRowHeight(50);
-	    table.getColumnModel().getColumn(0).setPreferredWidth(100);
-	    table.getColumnModel().getColumn(1).setPreferredWidth(100);
-	    panel.add(new JScrollPane(table), BorderLayout.WEST);
-	    panel.setBounds(870, 150, 800, 500);
-		add(panel);
+	   //Pravi tabelu:
+	    
+	    TableModel tm = table.getModel();
+	    
+	    DefaultTableModel dtm = (DefaultTableModel) tm;
+	    
+		dtm.setRowCount(0);
+	    
+	    for (String[] data : dataStringList) {
+			dtm.addRow(data);
+		}
+	    
+	    dtm.fireTableDataChanged();
+	    
+		repaint();
 	}
 	
 	public void addPanel() {
 		String[] columnHeaders={"Word", "Probability"};
-		String[][] data = new String[10][2];
-		table = new JTable(data, columnHeaders) {
+		
+		DefaultTableModel dtm = new DefaultTableModel(columnHeaders, predictionsShown);
+		
+		table = new JTable( dtm ) {
 	        private static final long serialVersionUID = 1L;
 
 	        public boolean isCellEditable(int row, int column) {                
@@ -187,8 +184,8 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	    table.setRowHeight(50);
 	    table.getColumnModel().getColumn(0).setPreferredWidth(100);
 	    table.getColumnModel().getColumn(1).setPreferredWidth(100);
-
-	    panel.add(new JScrollPane(table), BorderLayout.WEST);
+	    table.setFont(myFont);
+	    panel.add( new JScrollPane(table), BorderLayout.WEST);
 	    panel.setBounds(870, 150, 800, 500);
 		add(panel);
 	}
@@ -236,9 +233,6 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		case "Import .dict file":
 			DictDialog d = new DictDialog(this);
 			break;
-			
-			
-		
 		}
 		
 	
@@ -277,8 +271,6 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		String[] prefix = StringHelper.getNLastWords(words, 2);
 		
 		List<Prediction> predictions = MainProgram.getPredictions(prefix);
-		
-		System.out.println(predictions);
 		
 		updateChart(predictions);
 	}
