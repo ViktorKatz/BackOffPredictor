@@ -144,7 +144,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	   .map( new Function<Prediction, String[]>() {
 		@Override
 		public String[] apply(Prediction pred) {
-			String[] s = {pred.word, Double.toString(pred.probability)};
+			String[] s = {pred.word, String.format("%.10f", pred.probability) + "%"};
 			return s;
 		}
 	   })
