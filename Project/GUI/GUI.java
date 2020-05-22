@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -140,12 +141,18 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		   return 0;
 	   } )
 	   .limit(10)
-	   .map(pr -> new String[] {pr.word, Double.toString(pr.probability)} )
+	   .map( new Function<Prediction, String[]>() {
+		@Override
+		public String[] apply(Prediction pred) {
+			String[] s = {pred.word, Double.toString(pred.probability)};
+			return s;
+		}
+	   })
 	   .collect( Collectors.toList() ) ;
 	   
-	   System.out.println(dataStringList);
-	   
 	   dataStringList.toArray(data);
+	   
+	   System.out.println(data[0][0]);
 	   
 //Pravi tabelu:
 	   String[] columnHeaders={"Word", "Probability"};
@@ -223,6 +230,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 			break;
 		case "Exit":
 			dispose();
+			break;
 		case "Add Data from .txt file":
 			TextDialog t = new TextDialog(this);
 			break;
