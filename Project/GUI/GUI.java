@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -152,8 +153,6 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	   
 	   dataStringList.toArray(data);
 	   
-	   System.out.println(data[0][0]);
-	   
 //Pravi tabelu:
 	   String[] columnHeaders={"Word", "Probability"};
 	   table = new JTable(data, columnHeaders) {
@@ -258,8 +257,8 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		
 		String text = textArea.getText();
 		
-		if(!text.endsWith(" "))
-			return;		//The chart is updated only on spacebar
+		if(!text.endsWith(" ") && !text.endsWith(".") && !text.endsWith("?") && !text.endsWith("!"))
+			return;		//The chart is updated only on spacebar or EOS
 		
 		String bareText = StringHelper.removeUnwantedChars(text);
 		
@@ -268,6 +267,9 @@ public class GUI extends Frame implements ActionListener, TextListener{
 		String[] words = StringHelper.divideToUnigrams(adjustedText);
 		
 		MainProgram.addToCurrentDictionary(words);
+		
+		if(text.endsWith(".") || text.endsWith("?") || text.endsWith("!"))
+			MainProgram.addToCurrentDictionary( Arrays.copyOfRange(words, 0, words.length-1) );
 		
 		if(words.length<2)
 			return;		//The chart is updated only when there is enough data for a prefix.
