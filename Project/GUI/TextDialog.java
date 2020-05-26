@@ -1,16 +1,26 @@
 package GUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.JFileChooser;
+import java.io.IOException;
+
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import main.MainProgram;
+
 //import javax.swing.filechooser.FileSystemView;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class TextDialog extends Dialog implements ActionListener{
 	private Font myFont = new Font("SansSerif", Font.ITALIC, 12);
-	JTextArea textArea = new JTextArea("Choose a file:");
+	private Panel panel = new Panel();
+	private List<String> fileList = new ArrayList<String>();
+	private JTable table;
 	//Label label = new Label("Choose a file:");
 
 	public TextDialog(Frame parent) {
@@ -34,11 +44,31 @@ public class TextDialog extends Dialog implements ActionListener{
 
 	private void addComponents() {
 		addButtons();
-		addLabel();
+		addTable();
 	}
 	
+	public void addTable() {
+		String[] columnHeaders={"Chosen File Path"};
+		DefaultTableModel dtm = new DefaultTableModel(columnHeaders, 0);
+		
+		table = new JTable( dtm ) {
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        }
+		};
+	    table.setPreferredScrollableViewportSize(new Dimension(50, 40));
+	    table.setRowHeight(25);
+	    table.getColumnModel().getColumn(0).setPreferredWidth(50);
+	    table.setFont(myFont);
+	    panel.add( new JScrollPane(table));
+	    panel.setBounds(20, 10, 70, 90);
+		add(panel);
+	}
+
+	
 	private void addChooser() {
-		//throw exception ako nije izabran txt file (approve option)
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Select .txt file");
 		fileChooser.setAcceptAllFileFilterUsed(false);
@@ -47,23 +77,15 @@ public class TextDialog extends Dialog implements ActionListener{
 
 		int returnValue = fileChooser.showOpenDialog(this);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			textArea.setText("Izabrano: " + fileChooser.getSelectedFile().getPath());
-			//fileChooser.getSelectedFile(); fajl koji ce se koristiti
+			fileList.add(fileChooser.getSelectedFile().getPath());
+			//Pravi tabelu:
+		    
+		    TableModel tm = table.getModel();
+		    DefaultTableModel dtm = (DefaultTableModel) tm;
+			dtm.addRow( new String[]{fileChooser.getSelectedFile().getName()});
+		    dtm.fireTableDataChanged();
+			//repaint();
 		}
-	}
-	
-	private void addLabel() {
-		textArea.setText("Choose a file: ");
-		textArea.setBounds(20, 20, 260, 100);
-	    textArea.setWrapStyleWord(true);
-	    textArea.setLineWrap(true);
-	    textArea.setOpaque(false);
-	    textArea.setEditable(false);
-	    textArea.setFocusable(false);
-	    textArea.setBackground(UIManager.getColor("Label.background"));
-	    textArea.setFont(myFont);
-	    textArea.setBorder(UIManager.getBorder("Label.border"));
-	    add(textArea);
 	}
 	
 	private void addButtons() {
@@ -88,8 +110,13 @@ public class TextDialog extends Dialog implements ActionListener{
 			addChooser();
 		}
 		else if(e.getActionCommand() == "end") {
+			if(fileList.isEmpty()) dispose();
+			try {
+				MainProgram.makeDictionaryFromDirectories(fileList);
+			}
+			catch(IOException io) {
+			}
 			dispose();
 		}
-		//sacuvaj koji je recnik
 	}
 }
