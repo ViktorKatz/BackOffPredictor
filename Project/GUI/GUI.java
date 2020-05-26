@@ -133,6 +133,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	
 	public void updateChart(List<Prediction> dataList) {	   
 	   List<String[]> dataStringList = dataList.stream()
+		.filter(p -> !p.word.equals(" ") && !p.word.equals(""))
 	   .sorted( (Prediction pr1, Prediction pr2) -> {
 		   if(pr1.probability > pr2.probability)
 			   return -1;
@@ -144,7 +145,7 @@ public class GUI extends Frame implements ActionListener, TextListener{
 	   .map( new Function<Prediction, String[]>() {
 		@Override
 		public String[] apply(Prediction pred) {
-			String[] s = {pred.word, String.format("%.10f", pred.probability) + "%"};
+			String[] s = {pred.word, String.format("%.10f", pred.probability*100.0) + "%"};
 			return s;
 		}
 	   })
