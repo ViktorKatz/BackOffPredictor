@@ -2,6 +2,11 @@ package GUI;
 
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import main.MainProgram;
+
 //import java.awt.Desktop;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,7 +21,7 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 
 	public DictDialog(Frame parent) {
 		super(parent, "Import dictionari", true); 
-		path = "../Recnici";
+		path = "../Recnici/";
         folder = new File(path); //ako ne postoji throwuj gresku
         listOfFiles = folder.listFiles();     
         choice = new Choice();
@@ -24,8 +29,8 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 		setSize(300, 200);
 		addComponents();
 		setLayout(null);
+		setResizable(false);
 		setBackground(new Color(207, 235, 249));
-		setVisible(true);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -33,48 +38,48 @@ public class DictDialog extends Dialog implements ItemListener, ActionListener{
 		       dispose(); //close window on X
 			}
 		});
+		setVisible(true);
 	}
 	
 	private void addComponents() {
 		addChoice();
+		addButton();
 	}
 	
 	private void addChoice() {
-		//ako je prazna throwuj new exception koji ti kaze da moras da izaberes neki osim ako si kliknuo X
         for (File file : listOfFiles) {
 			choice.add(file.getName());
         }
         choice.addItemListener(this);
-        choice.setBounds(100, 80, 100, 40);
+        choice.setBounds(50, 80, 200, 70);
         add(choice);
 	}
 	
 	private void addButton() {
 		Button button = new Button("OK");
-		button.setFont(myFont);
-		button.setBounds(270, 180, 20, 10);
-		add(button);
+		//button.setFont(myFont);
+		button.setBounds(210, 170, 80, 20);
 		button.addActionListener(this);
 		button.setBackground(Color.LIGHT_GRAY);
+		add(button);
 	}
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		//String file = choice.getSelectedItem() + "";
-		Desktop desktop = Desktop.getDesktop();
-		File file = new File(choice.getSelectedItem());
-		String filePath = file.getAbsolutePath();
-		try {
-          // desktop.open(file); 
-          desktop.open(new File(filePath));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//sacuvaj koji je recnik
+		try {
+			//System.out.println(path+choice.getSelectedItem());
+			MainProgram.readDictionary(path+choice.getSelectedItem());
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(this,
+				    "Error in reading dictionary!\nEither the file i s corrupted, or you do not have the permission to read files.",
+				    "Error",
+				    JOptionPane.ERROR_MESSAGE);
+		}
 		dispose();
 	}
 	

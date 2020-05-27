@@ -3,8 +3,10 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import helpers.StringHelper;
 import model.NgramDictionary;
@@ -13,8 +15,8 @@ import model.Prediction;
 public final class MainProgram {
 
 	private static final int N = 3;
-	private static final int predictionsPerNgram = 2;
-	private static NgramDictionary currentDictionary = new NgramDictionary();
+	private static final int predictionsPerNgram = 10;
+	volatile private static NgramDictionary currentDictionary = new NgramDictionary();
 	private static double discounts[] = new double[N];
 	
 	static {
@@ -66,6 +68,11 @@ public final class MainProgram {
 		currentDictionary = new NgramDictionary(paths, N);
 	}
 	
+	public static List<Prediction> getPredictions(String[] words){
+		String prefix = Arrays.stream(words).reduce("", (s1,s2) -> s1+" "+s2);
+		return getPredictions(prefix);
+	}
+	
 	public static List<Prediction> getPredictions(String prefix){
 		String cleanPrefix = StringHelper.removeUnwantedChars(prefix);
 		String adjustedPrefix = StringHelper.replaceNUMChars(StringHelper.replaceEOSChars(cleanPrefix));
@@ -99,6 +106,19 @@ public final class MainProgram {
 		return results;
 	}
 	
+	public static void addToCurrentDictionary(String[] words) {
+		if(words.length<=0)
+			return;
+		
+		String prediction = words[words.length-1];
+		
+		for(int prefixSize=0;prefixSize<(N<words.length?N:words.length); ++prefixSize) {
+			String[] prefix = Arrays.copyOfRange(words, words.length-1-prefixSize, words.length-1);
+			
+			currentDictionary.addInstance(prefix, prediction);
+		}
+	}
+	
 	public static void main(String[] args) throws IOException {
 		readDictionary("FirstTestFromWikipedia.dict");
 		
@@ -109,7 +129,12 @@ public final class MainProgram {
 		System.out.println(getCoefficient(3));
 		
 		System.out.println(getPredictions("se koriste"));
-
+		
+		clearDictionary();
+		List<String> paths = new ArrayList<String>();
+		paths.add("../Tekstovi/ETF");
+		makeDictionaryFromDirectories(paths);
+		//saveDictionary("TestEtf.dict");
 	}
 
 }
