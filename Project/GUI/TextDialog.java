@@ -48,7 +48,7 @@ public class TextDialog extends Dialog implements ActionListener{
 	}
 	
 	public void addTable() {
-		String[] columnHeaders={"Chosen File Path"};
+		String[] columnHeaders={"Chosen File Paths:"};
 		DefaultTableModel dtm = new DefaultTableModel(columnHeaders, 0);
 		
 		table = new JTable( dtm ) {
@@ -58,12 +58,12 @@ public class TextDialog extends Dialog implements ActionListener{
 	                return false;               
 	        }
 		};
-	    table.setPreferredScrollableViewportSize(new Dimension(50, 40));
+	    table.setPreferredScrollableViewportSize(new Dimension(200, 50));
 	    table.setRowHeight(25);
-	    table.getColumnModel().getColumn(0).setPreferredWidth(50);
+	    table.getColumnModel().getColumn(0).setPreferredWidth(100);
 	    table.setFont(myFont);
 	    panel.add( new JScrollPane(table));
-	    panel.setBounds(20, 10, 70, 90);
+	    panel.setBounds(50, 50, 200, 190);
 		add(panel);
 	}
 
